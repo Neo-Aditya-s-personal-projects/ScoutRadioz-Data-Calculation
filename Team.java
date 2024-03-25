@@ -25,7 +25,7 @@ public class Team {
      * @param autoNotes Amount of Notes the robot scored in Auto
      * @param notesPassed Amount of notes the robot passed in Teleop
      * @param trapNotes Amount of Trap notes the robot scored
-     * @param climbed If the robot sucessfully climb
+     * @param climbed If the robot sucessfully climbed
      */
     public void appendData(String role, int speakerNotes, int ampNotes, int autoNotes, int notesPassed, int trapNotes, boolean climbed) {
         totalMatches++;
