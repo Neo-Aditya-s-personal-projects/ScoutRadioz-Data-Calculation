@@ -1,3 +1,4 @@
+package src.main.java;
 public class Team {
     private final int teamNumber;
     private int totalSpeakerNotes = 0;
