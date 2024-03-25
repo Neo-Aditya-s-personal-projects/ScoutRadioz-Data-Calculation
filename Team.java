@@ -61,6 +61,7 @@ public class Team {
     public int getTeamNumber() {
         return teamNumber;
     }
+
     public int getTotalSpeakerNotes() {
         return this.totalSpeakerNotes;
     }
@@ -104,6 +105,7 @@ public class Team {
     public int getTotalMatches() {
         return this.totalMatches;
     }
+    
     /**
      * @return the average speaker notes scored when the robot was playing offense or amp
      */
