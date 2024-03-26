@@ -20,7 +20,7 @@ public class GUI implements ActionListener {
 
     public GUI() {
         panel.setBorder(BorderFactory.createMatteBorder(300, 300, 100, 300, Color.BLUE));
-        panel.setLayout(new GridLayout(0,1));
+        panel.setLayout(new GridLayout(100,100));
 
         panel.add(button);
         button.addActionListener(this);
