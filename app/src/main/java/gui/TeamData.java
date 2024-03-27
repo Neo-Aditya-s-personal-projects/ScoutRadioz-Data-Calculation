@@ -44,15 +44,12 @@ public class TeamData implements ActionListener {
 
     private JCheckBox climbed = new JCheckBox("Did they Climb?");
 
-    private JButton button = new JButton("Submit");
+    private JButton submitButton = new JButton("Submit Data");
 
     public TeamData(GUI gui) {
         panel.setBorder(BorderFactory.createMatteBorder(30, 30, 30, 30, Color.BLUE));
         panel.setLayout(null);
         panel.setPreferredSize(new Dimension(10000, 1000));
-
-        panel.add(button);
-        button.addActionListener(this);
 
         labelTeamName.setBounds(31, 31, 300, 25);
         panel.add(labelTeamName);
@@ -104,6 +101,11 @@ public class TeamData implements ActionListener {
 
         climbed.setBounds(31, 510, 300, 25);
         panel.add(climbed);
+
+        submitButton.setBounds(31, 540, 300, 25);
+        submitButton.setBackground(Color.LIGHT_GRAY);
+        panel.add(submitButton);
+        submitButton.addActionListener(this);
 
         frame.add(panel, BorderLayout.CENTER);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
