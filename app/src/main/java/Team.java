@@ -29,16 +29,14 @@ public class Team {
      * @param climbed If the robot sucessfully climbed
      */
     public void appendData(String role, int speakerNotes, int ampNotes, int autoNotes, int notesPassed, int trapNotes, boolean climbed) {
-        totalMatches++;
-        if (climbed)
-            climbCounter++;
-
         if (role.equals("O")) {
             offenseCounter++;
             totalSpeakerNotes += speakerNotes;
             totalAmpNotes += ampNotes;
             totalAutoNotes += autoNotes;
             totalTrapNotes += trapNotes;
+            totalMatches++;
+            if (climbed) climbCounter++;
         }
 
         if (role.equals("A")) {
@@ -48,14 +46,20 @@ public class Team {
             totalAmpNotes += ampNotes;
             totalAutoNotes += autoNotes;
             totalTrapNotes += trapNotes;
+            totalMatches++;
+            if (climbed) climbCounter++;
         }
 
         if (role.equals("D"))
             defenseCounter++;
+            totalMatches++;
+            if (climbed) climbCounter++;
 
         if (role.equals("S")) {
             supportCounter++;
             totalNotesPassed += notesPassed;
+            totalMatches++;
+            if (climbed) climbCounter++;
         }
     }
 
