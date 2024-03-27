@@ -119,6 +119,10 @@ public class TeamData implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         System.out.println(teamName.getText());
-
+        try {
+            Integer.valueOf(teamName.getText());
+        } catch (NumberFormatException error) {
+            System.out.println("Error, team number can only be numbers");
+        }
     }
 }
