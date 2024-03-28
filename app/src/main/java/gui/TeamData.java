@@ -48,11 +48,12 @@ public class TeamData implements ActionListener {
     private JButton submitButton = new JButton("Submit Data");
 
     public TeamData(GUI gui) {
+        new ToggleScreenButton(panel, Screen.AddData, gui);
         panel.setBorder(BorderFactory.createMatteBorder(30, 30, 30, 30, Color.BLUE));
         panel.setLayout(null);
         panel.setPreferredSize(new Dimension(10000, 1000));
 
-        labelTeamName.setBounds(31, 31, 300, 25);
+        labelTeamName.setBounds(31, 30, 300, 25);
         panel.add(labelTeamName);
 
         teamName.setBounds(31, 60, 300, 25);
