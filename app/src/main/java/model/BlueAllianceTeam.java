@@ -24,7 +24,7 @@ public class BlueAllianceTeam {
     public void setKey(String key) {
         this.key = key;
     }
-    public int getTeam_number() {
+    public int getTeamNumber() {
         return team_number;
     }
     public void setTeam_number(int team_number) {
