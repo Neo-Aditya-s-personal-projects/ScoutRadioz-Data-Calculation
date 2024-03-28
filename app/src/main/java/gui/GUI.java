@@ -1,5 +1,7 @@
 package gui;
+
 import javax.swing.JFrame;
+
 public class GUI {
 
     private JFrame frame = new JFrame();
@@ -9,7 +11,7 @@ public class GUI {
         frame.pack();
         frame.setVisible(true);
     }
-    
+
     public void setFrame(JFrame frame) {
         this.frame = frame;
     }

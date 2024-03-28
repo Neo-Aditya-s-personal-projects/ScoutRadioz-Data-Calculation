@@ -17,10 +17,10 @@ public class TeamsAttending {
             HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
             result = response.body();
         } catch (Exception e) {
-            System.out.println("Something Broke");    
+            System.out.println("Something Broke");
         }
         if (result != null) {
-            
+
         }
     }
 }
