@@ -1,4 +1,5 @@
 package gui;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -118,11 +119,66 @@ public class TeamData implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println(teamName.getText());
+        if (checkDataValidity()) {
+            resetScreen();
+        }
+    }
+
+    public void resetScreen() {
+        teamName.setText("Team's Name");
+        teamNumber.setText("Team Number");
+        role.setText("Role");
+        speakerNotes.setText("# of Speaker Notes");
+        ampNotes.setText("# of Amp Notes");
+        autoNotes.setText("# of Auto Notes");
+        notesPassed.setText("# of Notes Passed");
+        trapNotes.setText("# of Trap Notes");
+    }
+
+    private boolean checkDataValidity() {
+        boolean isValid = true;
         try {
-            Integer.valueOf(teamName.getText());
+            Integer.valueOf(teamNumber.getText());
         } catch (NumberFormatException error) {
             System.out.println("Error, team number can only be numbers");
+            isValid = false;
         }
+        if (!(role.getText().equalsIgnoreCase("D")) && !(role.getText().equalsIgnoreCase("A")) && !(role.getText().equalsIgnoreCase("S")) && !(role.getText().equalsIgnoreCase("O"))) {
+            System.out.println("Error, Role can only be D, A, S, or O");
+            System.out.println(role.getText().equalsIgnoreCase("D"));
+            System.out.println(role.getText());
+            isValid = false;
+        }
+        try {
+            Integer.valueOf(speakerNotes.getText());
+        } catch (NumberFormatException error) {
+            System.out.println("Error, Speaker Notes can only be numbers");
+            isValid = false;
+        }
+        try {
+            Integer.valueOf(ampNotes.getText());
+        } catch (NumberFormatException error) {
+            System.out.println("Error, Amp Notes can only be numbers");
+            isValid = false;
+        }
+        try {
+            Integer.valueOf(autoNotes.getText());
+        } catch (NumberFormatException error) {
+            System.out.println("Error, Auto Notes can only be numbers");
+            isValid = false;
+        }
+        try {
+            Integer.valueOf(notesPassed.getText());
+        } catch (NumberFormatException error) {
+            System.out.println("Error, Notes Passed can only be numbers");
+            isValid = false;
+        }
+        try {
+            Integer.valueOf(trapNotes.getText());
+        } catch (NumberFormatException error) {
+            System.out.println("Error, Trap Notes can only be numbers");
+            isValid = false;
+        }
+        return isValid;
     }
 }
