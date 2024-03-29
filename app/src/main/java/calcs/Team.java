@@ -1,3 +1,4 @@
+package calcs;
 
 public class Team {
     private final int teamNumber;
@@ -43,9 +44,7 @@ public class Team {
         }
 
         if (role.equalsIgnoreCase("A")) {
-            offenseCounter++;
             mainAmpCounter++;
-            totalSpeakerNotes += speakerNotes;
             totalAmpNotes += ampNotes;
             totalAutoNotes += autoNotes;
             totalTrapNotes += trapNotes;
@@ -54,16 +53,19 @@ public class Team {
                 climbCounter++;
         }
 
-        if (role.equalsIgnoreCase("D"))
+        if (role.equalsIgnoreCase("D")) {
             defenseCounter++;
-        totalMatches++;
-        if (climbed)
-            climbCounter++;
+            totalMatches++;
+            totalAutoNotes += autoNotes;
+            if (climbed)
+                climbCounter++;
+        }
 
         if (role.equalsIgnoreCase("S")) {
             supportCounter++;
             totalNotesPassed += notesPassed;
             totalMatches++;
+            totalAutoNotes += autoNotes;
             if (climbed)
                 climbCounter++;
         }

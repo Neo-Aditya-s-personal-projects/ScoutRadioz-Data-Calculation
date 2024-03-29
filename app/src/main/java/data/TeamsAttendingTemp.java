@@ -1,3 +1,7 @@
+package data;
+
+import calcs.Team;
+
 public class TeamsAttendingTemp {
     static Team[] teams = {
         new Team(69, "Hyper"),
