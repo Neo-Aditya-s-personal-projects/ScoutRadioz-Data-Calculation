@@ -2,7 +2,7 @@ package calcs;
 
 public class CalculateTable {
     
-    public static double[][] getData(Team[] teams) {
+    public static double[][] getDataDoubles(Team[] teams) {
         double[][] data = new double[teams.length][];
         for (int i = 0; i < teams.length; i++) {
             double[] teamData = {
@@ -17,6 +17,18 @@ public class CalculateTable {
                 teams[i].getDefenseCount()
             };
             data[i] = teamData;
+        }
+        return data;
+    }
+
+    public static Object[][] getDataObjects(Team[] teams) {
+        Object[][] data = new Object[teams.length][];
+        double[][] temp = getDataDoubles(teams);
+        for (int i = 0; i < temp.length; i++) {
+            data[i] = new Object[temp[i].length];
+            for (int j = 0; j < temp[i].length; j++) {
+                data[i][j] = temp[i][j];
+            }
         }
         return data;
     }
