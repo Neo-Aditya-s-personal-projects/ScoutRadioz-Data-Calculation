@@ -53,7 +53,7 @@ public class DataInput implements ActionListener {
         new ToggleScreenButton(panel, Screen.AddData, gui);
         panel.setBorder(BorderFactory.createMatteBorder(30, 30, 30, 30, Color.BLUE));
         panel.setLayout(null);
-        panel.setPreferredSize(new Dimension(10000, 1000));
+        panel.setPreferredSize(new Dimension(1920, 1280));
 
         labelTeamName.setBounds(31, 30, 300, 25);
         panel.add(labelTeamName);
