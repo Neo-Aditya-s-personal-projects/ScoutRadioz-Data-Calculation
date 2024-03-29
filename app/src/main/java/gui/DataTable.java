@@ -1,8 +1,12 @@
 package gui;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTable;
@@ -20,10 +24,18 @@ public class DataTable implements ActionListener{
     private final JTable table = new JTable(model);
 
     public DataTable(GUI gui) {
+        panel.setBorder(BorderFactory.createMatteBorder(30, 30, 30, 30, Color.BLUE));
+        panel.setLayout(null);
+        panel.setPreferredSize(new Dimension(10000, 1000));
         panel.add(table);
 
         new ToggleScreenButton(panel, Screen.DataTable, gui);
 
+        frame.add(panel, BorderLayout.CENTER);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setTitle("Match Scouting");
+        frame.pack();
+        frame.setVisible(true);
         gui.setFrame(frame);
     }
 
