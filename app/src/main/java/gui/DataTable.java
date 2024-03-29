@@ -11,6 +11,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -44,6 +45,8 @@ public class DataTable extends JFrame {
         }
 
         panel.setBorder(BorderFactory.createMatteBorder(30, 30, 30, 30, Color.BLUE));
+        panel.add(buttonPanel, BorderLayout.NORTH);
+        panel.add(new JScrollPane(table), BorderLayout.CENTER);
         panel.setLayout(null);
         panel.setPreferredSize(new Dimension(1540, 1280));
         table.setBounds(31, 60, (1540-61), 1000);
@@ -53,7 +56,7 @@ public class DataTable extends JFrame {
 
         frame.add(panel, BorderLayout.CENTER);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setTitle("Match Scouting");
+        frame.setTitle("Scouting Results");
         frame.pack();
         frame.setVisible(true);
         gui.setFrame(frame);
