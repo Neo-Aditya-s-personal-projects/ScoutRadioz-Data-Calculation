@@ -7,7 +7,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 
-
 public class DataTable implements ActionListener{
 
     private JFrame frame = new JFrame();
