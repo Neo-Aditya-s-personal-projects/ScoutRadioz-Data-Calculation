@@ -27,6 +27,7 @@ public class DataTable implements ActionListener{
         panel.setBorder(BorderFactory.createMatteBorder(30, 30, 30, 30, Color.BLUE));
         panel.setLayout(null);
         panel.setPreferredSize(new Dimension(10000, 1000));
+        table.setBounds(31, 60, 10000, 1000);
         panel.add(table);
 
         new ToggleScreenButton(panel, Screen.DataTable, gui);
