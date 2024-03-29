@@ -72,6 +72,7 @@ public class TeamsAttendingTemp {
         for (int i = 0; i < teams.length; i++) {
             if (teams[i].getTotalMatches() > 0) {
                 validTeams[index] = teams[i];
+                index++;
             }
         }
         return validTeams;
