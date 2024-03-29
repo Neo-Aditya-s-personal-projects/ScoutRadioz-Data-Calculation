@@ -13,6 +13,7 @@ public class GUI {
     }
 
     public void setFrame(JFrame frame) {
+        frame.dispose();
         this.frame = frame;
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
