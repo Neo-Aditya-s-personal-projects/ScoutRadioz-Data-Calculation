@@ -115,41 +115,41 @@ public class Team {
      * @return the average speaker notes scored when the robot was playing offense or amp
      */
     public double getCalculatedAverageSpeakerNotes() {
-        return (double) totalSpeakerNotes / offenseCounter;
+        return (offenseCounter == 0) ? -1 : (double) totalSpeakerNotes / offenseCounter;
     }
 
     /**
      * @return the average trap notes scored when the robot was playing offense or amp
      */
     public double getCalculatedAverageTrapNotes() {
-        return (double) (totalTrapNotes / totalMatches);
+        return (totalMatches == 0) ? -1 : (double) (totalTrapNotes / totalMatches);
     }
 
     /**
      * @return the average Amp notes scored when the robot was playing offense or amp
      */
     public double getCalculatedAverageAmpNotes() {
-        return (double) (totalAmpNotes / mainAmpCounter);
+        return (mainAmpCounter == 0) ? -1 : (double) (totalAmpNotes / mainAmpCounter);
     }
 
     /**
      * @return the average notes scored in Auto
      */
     public double getCalculatedAverageAutoNotes() {
-        return (double) (totalAutoNotes / totalMatches);
+        return (totalMatches == 0) ? -1 : (double) (totalAutoNotes / totalMatches);
     }
 
     /**
      * @return the average notes Passed when the robot was playing support
      */
     public double getCalculatedAverageNotesPassed() {
-        return (double) (totalNotesPassed / supportCounter);
+        return (supportCounter == 0) ? -1 : (double) (totalNotesPassed / supportCounter);
     }
 
     /**
      * @return the chance of the robot climbing 0-1
      */
     public double getCalculatedAverageClimb() {
-        return (double) (climbCounter / totalMatches);
+        return (totalMatches == 0) ? -1 : (double) (climbCounter / totalMatches);
     }
 }
