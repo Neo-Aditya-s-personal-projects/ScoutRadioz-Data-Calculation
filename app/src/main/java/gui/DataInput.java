@@ -137,6 +137,7 @@ public class DataInput implements ActionListener {
         autoNotes.setText("# of Auto Notes");
         notesPassed.setText("# of Notes Passed");
         trapNotes.setText("# of Trap Notes");
+        climbed.setSelected(false);
     }
 
     private boolean checkDataValidity() {
