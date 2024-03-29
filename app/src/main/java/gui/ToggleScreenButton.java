@@ -15,12 +15,12 @@ public class ToggleScreenButton implements ActionListener {
         this.gui = gui;
         if (currentScreen.equals(Screen.DataTable)) {
             toggleScreen.setText("Add Data");
-            toggleScreen.setBounds(31, 31, 300, 25);
+            toggleScreen.setBounds(710, 31, 300, 25);
             toggleScreen.setBackground(Color.RED);
             toggleScreen.setForeground(Color.BLUE);
         } else {
             toggleScreen.setText("Data Table");
-            toggleScreen.setBounds(31, 570, 300, 25);
+            toggleScreen.setBounds(710, 570, 300, 25);
             toggleScreen.setBackground(Color.BLUE);
             toggleScreen.setForeground(Color.RED);
         }

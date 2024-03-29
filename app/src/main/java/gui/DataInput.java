@@ -55,58 +55,58 @@ public class DataInput implements ActionListener {
         panel.setLayout(null);
         panel.setPreferredSize(new Dimension(1920, 1280));
 
-        labelTeamName.setBounds(31, 30, 300, 25);
+        labelTeamName.setBounds(710, 30, 300, 25);
         panel.add(labelTeamName);
 
-        teamName.setBounds(31, 60, 300, 25);
+        teamName.setBounds(710, 60, 300, 25);
         panel.add(teamName);
 
-        labelTeamNumber.setBounds(31, 90, 300, 25);
+        labelTeamNumber.setBounds(710, 90, 300, 25);
         panel.add(labelTeamNumber);
 
-        teamNumber.setBounds(31, 120, 300, 25);
+        teamNumber.setBounds(710, 120, 300, 25);
         panel.add(teamNumber);
 
-        labelRole.setBounds(31, 150, 300, 25);
+        labelRole.setBounds(710, 150, 300, 25);
         panel.add(labelRole);
 
-        role.setBounds(31, 180, 300, 25);
+        role.setBounds(710, 180, 300, 25);
         panel.add(role);
 
-        labelSpeakerNotes.setBounds(31, 210, 300, 25);
+        labelSpeakerNotes.setBounds(710, 210, 300, 25);
         panel.add(labelSpeakerNotes);
 
-        speakerNotes.setBounds(31, 240, 300, 25);
+        speakerNotes.setBounds(710, 240, 300, 25);
         panel.add(speakerNotes);
 
-        labelAmpNotes.setBounds(31, 270, 300, 25);
+        labelAmpNotes.setBounds(710, 270, 300, 25);
         panel.add(labelAmpNotes);
 
-        ampNotes.setBounds(31, 300, 300, 25);
+        ampNotes.setBounds(710, 300, 300, 25);
         panel.add(ampNotes);
 
-        labelAutoNotes.setBounds(31, 330, 300, 25);
+        labelAutoNotes.setBounds(710, 330, 300, 25);
         panel.add(labelAutoNotes);
 
-        autoNotes.setBounds(31, 360, 300, 25);
+        autoNotes.setBounds(710, 360, 300, 25);
         panel.add(autoNotes);
 
-        labelNotesPassed.setBounds(31, 390, 300, 25);
+        labelNotesPassed.setBounds(710, 390, 300, 25);
         panel.add(labelNotesPassed);
 
-        notesPassed.setBounds(31, 420, 300, 25);
+        notesPassed.setBounds(710, 420, 300, 25);
         panel.add(notesPassed);
 
-        labelTrapNotes.setBounds(31, 450, 300, 25);
+        labelTrapNotes.setBounds(710, 450, 300, 25);
         panel.add(labelTrapNotes);
 
-        trapNotes.setBounds(31, 480, 300, 25);
+        trapNotes.setBounds(710, 480, 300, 25);
         panel.add(trapNotes);
 
-        climbed.setBounds(31, 510, 300, 25);
+        climbed.setBounds(710, 510, 300, 25);
         panel.add(climbed);
 
-        submitButton.setBounds(31, 540, 300, 25);
+        submitButton.setBounds(710, 540, 300, 25);
         submitButton.setBackground(Color.LIGHT_GRAY);
         panel.add(submitButton);
         submitButton.addActionListener(this);
