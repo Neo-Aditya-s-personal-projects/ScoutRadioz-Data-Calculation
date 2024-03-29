@@ -14,6 +14,9 @@ public class GUI {
 
     public void setFrame(JFrame frame) {
         this.frame = frame;
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
     }
 
     public JFrame getFrame() {
