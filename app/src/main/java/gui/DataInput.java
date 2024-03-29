@@ -14,6 +14,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+import data.TeamsAttendingTemp;
+
 public class DataInput implements ActionListener {
 
     private JFrame frame = new JFrame();
@@ -121,6 +123,7 @@ public class DataInput implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (checkDataValidity()) {
+            TeamsAttendingTemp.appendData(Integer.valueOf(teamNumber.getText()), role.getText(), Integer.valueOf(speakerNotes.getText()), Integer.valueOf(ampNotes.getText()), Integer.valueOf(autoNotes.getText()), Integer.valueOf(notesPassed.getText()), Integer.valueOf(trapNotes.getText()), climbed.isSelected());
             resetScreen();
         }
     }
@@ -180,6 +183,9 @@ public class DataInput implements ActionListener {
             System.out.println("Error, Trap Notes can only be numbers");
             isValid = false;
         }
-        return isValid;
+        if (isValid) {
+            return TeamsAttendingTemp.isValidNumber(Integer.valueOf(teamNumber.getText()));
+        }
+        return false;
     }
 }
