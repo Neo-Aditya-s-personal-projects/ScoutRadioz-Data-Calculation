@@ -5,8 +5,10 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTable;
@@ -15,15 +17,32 @@ import javax.swing.table.DefaultTableModel;
 import calcs.CalculateTable;
 import data.TeamsAttendingTemp;
 
-public class DataTable implements ActionListener{
+public class DataTable extends JFrame {
 
     private final JFrame frame = new JFrame();
     private final JPanel panel = new JPanel();
     private String[] columnNames = {"Team Number", "Average Auto", "Average Amp", "Average Speaker", "Climb Probability", "Average Passes", "Average Trap", "Total Matches", "Defense Count"};
-    DefaultTableModel model = new DefaultTableModel(CalculateTable.getDataObjects(TeamsAttendingTemp.getTeams()), columnNames);
-    private final JTable table = new JTable(model);
+    private JTable table = new JTable(new DefaultTableModel(CalculateTable.getDataObjects(TeamsAttendingTemp.getTeams()), columnNames));
+    private JPanel buttonPanel = new JPanel(new GridLayout(1, columnNames.length));
+    private int lastButtonClicked = -1;
 
     public DataTable(GUI gui) {
+        super();
+
+        for(int i = 0; i< columnNames.length; i++){
+            JButton button = new JButton(columnNames[i]);
+            final Integer inneri = i;
+             button.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    table.setModel(new DefaultTableModel(CalculateTable.doublestoObjects(CalculateTable.organizeData(CalculateTable.getDataDoubles(TeamsAttendingTemp.getTeams()), inneri, (lastButtonClicked == inneri))), columnNames));
+                    lastButtonClicked = (lastButtonClicked == inneri) ? -1 : inneri; 
+                }
+            });
+
+            buttonPanel.add(button);
+        }
+
         panel.setBorder(BorderFactory.createMatteBorder(30, 30, 30, 30, Color.BLUE));
         panel.setLayout(null);
         panel.setPreferredSize(new Dimension(1540, 1280));
@@ -38,11 +57,5 @@ public class DataTable implements ActionListener{
         frame.pack();
         frame.setVisible(true);
         gui.setFrame(frame);
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
     }
 }
