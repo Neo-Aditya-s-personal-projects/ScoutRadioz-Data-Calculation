@@ -1,9 +1,9 @@
 import gui.GUI;
-import gui.TeamData;
+import gui.DataInput;
 
 public class Main {
     public static void main(String Args[]) {
         GUI gui = new GUI();
-        TeamData dataInput = new TeamData(gui);
+        DataInput dataInput = new DataInput(gui);
     }
 }

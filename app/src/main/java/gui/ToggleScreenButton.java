@@ -31,9 +31,9 @@ public class ToggleScreenButton implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (toggleScreen.getText().equals("Add Data")) {
-            new TeamData(gui);
+            new DataInput(gui);
         } else {
-
+            new DataTable(gui);
         }
     }
 

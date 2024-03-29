@@ -14,7 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-public class TeamData implements ActionListener {
+public class DataInput implements ActionListener {
 
     private JFrame frame = new JFrame();
     private JPanel panel = new JPanel();
@@ -47,7 +47,7 @@ public class TeamData implements ActionListener {
 
     private JButton submitButton = new JButton("Submit Data");
 
-    public TeamData(GUI gui) {
+    public DataInput(GUI gui) {
         new ToggleScreenButton(panel, Screen.AddData, gui);
         panel.setBorder(BorderFactory.createMatteBorder(30, 30, 30, 30, Color.BLUE));
         panel.setLayout(null);

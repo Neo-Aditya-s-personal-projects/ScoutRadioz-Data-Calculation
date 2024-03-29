@@ -1,6 +1,7 @@
 
 public class Team {
     private final int teamNumber;
+    private final String teamName;
     private int totalSpeakerNotes = 0;
     private int totalAmpNotes = 0;
     private int totalAutoNotes = 0;
@@ -13,8 +14,9 @@ public class Team {
     private int mainAmpCounter = 0;
     private int totalMatches = 0;
 
-    public Team(int teamNumber) {
+    public Team(int teamNumber, String teamName) {
         this.teamNumber = teamNumber;
+        this.teamName = teamName;
     }
 
     /**
@@ -69,6 +71,10 @@ public class Team {
 
     public int getTeamNumber() {
         return teamNumber;
+    }
+
+    public String getTeamName() {
+        return teamName;
     }
 
     public int getTotalSpeakerNotes() {
