@@ -20,7 +20,7 @@ public class ToggleScreenButton implements ActionListener {
             toggleScreen.setForeground(Color.BLUE);
         } else {
             toggleScreen.setText("Data Table");
-            toggleScreen.setBounds(31, 570, 300, 25);
+            toggleScreen.setBounds(31, 31, 300, 25);
             toggleScreen.setBackground(Color.BLUE);
             toggleScreen.setForeground(Color.RED);
         }
