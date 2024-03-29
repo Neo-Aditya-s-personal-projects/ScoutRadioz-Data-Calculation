@@ -50,7 +50,7 @@ public class CalculateTable {
                     }
                 }
             }
-            while (organizedData[tempIndex][0] != 0) {
+            while (organizedData[tempIndex] != null) {
                 tempIndex++;
             }
             organizedData[tempIndex] = teamData[i];
