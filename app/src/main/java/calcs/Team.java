@@ -32,42 +32,30 @@ public class Team {
      * @param climbed      If the robot sucessfully climbed
      */
     public void appendData(String role, int speakerNotes, int ampNotes, int autoNotes, int notesPassed, int trapNotes, boolean climbed) {
+        totalAutoNotes += autoNotes;
+        totalMatches++;
+
+        if (climbed)
+            climbCounter++;
+
         if (role.equalsIgnoreCase("O")) {
             offenseCounter++;
             totalSpeakerNotes += speakerNotes;
-            totalAmpNotes += ampNotes;
-            totalAutoNotes += autoNotes;
-            totalTrapNotes += trapNotes;
-            totalMatches++;
-            if (climbed) 
-                climbCounter++;
+            //totalAmpNotes += ampNotes;
         }
 
         if (role.equalsIgnoreCase("A")) {
             mainAmpCounter++;
             totalAmpNotes += ampNotes;
-            totalAutoNotes += autoNotes;
-            totalTrapNotes += trapNotes;
-            totalMatches++;
-            if (climbed)
-                climbCounter++;
         }
 
         if (role.equalsIgnoreCase("D")) {
             defenseCounter++;
-            totalMatches++;
-            totalAutoNotes += autoNotes;
-            if (climbed)
-                climbCounter++;
         }
 
         if (role.equalsIgnoreCase("S")) {
             supportCounter++;
             totalNotesPassed += notesPassed;
-            totalMatches++;
-            totalAutoNotes += autoNotes;
-            if (climbed)
-                climbCounter++;
         }
     }
 
@@ -134,14 +122,14 @@ public class Team {
      * @return the average trap notes scored when the robot was playing offense or amp
      */
     public double getCalculatedAverageTrapNotes() {
-        return (double) (totalTrapNotes / offenseCounter);
+        return (double) (totalTrapNotes / totalMatches);
     }
 
     /**
      * @return the average Amp notes scored when the robot was playing offense or amp
      */
     public double getCalculatedAverageAmpNotes() {
-        return (double) (totalAmpNotes / offenseCounter);
+        return (double) (totalAmpNotes / mainAmpCounter);
     }
 
     /**
