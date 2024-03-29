@@ -43,13 +43,15 @@ public class DataTable extends JFrame {
 
             buttonPanel.add(button);
         }
+        buttonPanel.setBounds(31, 60, (1540-61), 25);
+        panel.add(buttonPanel, BorderLayout.NORTH);
 
         panel.setBorder(BorderFactory.createMatteBorder(30, 30, 30, 30, Color.BLUE));
-        panel.add(buttonPanel, BorderLayout.NORTH);
         panel.add(new JScrollPane(table), BorderLayout.CENTER);
         panel.setLayout(null);
         panel.setPreferredSize(new Dimension(1540, 1280));
-        table.setBounds(31, 60, (1540-61), 1000);
+
+        table.setBounds(31, 90, (1540-61), 1000);
         panel.add(table);
 
         new ToggleScreenButton(panel, Screen.DataTable, gui);
