@@ -34,6 +34,7 @@ public class Team {
     public void appendData(String role, int speakerNotes, int ampNotes, int autoNotes, int notesPassed, int trapNotes, boolean climbed) {
         totalAutoNotes += autoNotes;
         totalMatches++;
+        trapNotes += trapNotes;
 
         if (climbed)
             climbCounter++;
