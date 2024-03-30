@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Font;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -45,17 +46,18 @@ public class DataTable extends JFrame {
                     {
                         @Override
                         public boolean isCellEditable(int row, int column) {
-                           //all cells false
                            return false;
                         }
                     });
                     lastButtonClicked = (lastButtonClicked == inneri) ? -1 : inneri; 
+                    table.setFont((new Font(table.getFont().getName(), Font.BOLD, 20)));
                 }
             });
 
             buttonPanel.add(button);
         }
         buttonPanel.setBounds(31, 60, (1540-61), 25);
+        table.setFont((new Font(table.getFont().getName(), Font.BOLD, 20)))
         panel.add(buttonPanel, BorderLayout.NORTH);
 
         panel.setBorder(BorderFactory.createMatteBorder(30, 30, 30, 30, Color.BLUE));
