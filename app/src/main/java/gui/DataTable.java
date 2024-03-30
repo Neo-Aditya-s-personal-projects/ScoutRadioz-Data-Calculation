@@ -57,7 +57,7 @@ public class DataTable extends JFrame {
             buttonPanel.add(button);
         }
         buttonPanel.setBounds(31, 60, (1540-61), 25);
-        table.setFont((new Font(table.getFont().getName(), Font.BOLD, 20)))
+        table.setFont((new Font(table.getFont().getName(), Font.BOLD, 20)));
         panel.add(buttonPanel, BorderLayout.NORTH);
 
         panel.setBorder(BorderFactory.createMatteBorder(30, 30, 30, 30, Color.BLUE));
