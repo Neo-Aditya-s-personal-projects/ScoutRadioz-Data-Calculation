@@ -51,6 +51,8 @@ public class DataTable extends JFrame {
                     });
                     lastButtonClicked = (lastButtonClicked == inneri) ? -1 : inneri; 
                     table.setFont((new Font(table.getFont().getName(), Font.BOLD, 20)));
+                    table.setRowHeight(table.getRowHeight() + 5);
+                    table.setRowMargin(5);
                 }
             });
 
@@ -58,6 +60,8 @@ public class DataTable extends JFrame {
         }
         buttonPanel.setBounds(31, 60, (1540-61), 25);
         table.setFont((new Font(table.getFont().getName(), Font.BOLD, 20)));
+        table.setRowHeight(table.getRowHeight() + 5);
+        table.setRowMargin(5);
         panel.add(buttonPanel, BorderLayout.NORTH);
 
         panel.setBorder(BorderFactory.createMatteBorder(30, 30, 30, 30, Color.BLUE));
