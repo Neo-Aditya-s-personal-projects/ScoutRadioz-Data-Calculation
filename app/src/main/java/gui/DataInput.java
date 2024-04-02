@@ -14,7 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-import data.AttengingTeamsData;
+import data.AttendingTeamsData;
 
 public class DataInput implements ActionListener {
 
@@ -123,7 +123,7 @@ public class DataInput implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (checkDataValidity()) {
-            AttengingTeamsData.appendData(Integer.valueOf(teamNumber.getText()), role.getText(), Integer.valueOf(speakerNotes.getText()), Integer.valueOf(ampNotes.getText()), Integer.valueOf(autoNotes.getText()), Integer.valueOf(notesPassed.getText()), Integer.valueOf(trapNotes.getText()), climbed.isSelected());
+            AttendingTeamsData.appendData(Integer.valueOf(teamNumber.getText()), role.getText(), Integer.valueOf(speakerNotes.getText()), Integer.valueOf(ampNotes.getText()), Integer.valueOf(autoNotes.getText()), Integer.valueOf(notesPassed.getText()), Integer.valueOf(trapNotes.getText()), climbed.isSelected());
             resetScreen();
         }
     }
@@ -185,7 +185,7 @@ public class DataInput implements ActionListener {
             isValid = false;
         }
         if (isValid) {
-            return AttengingTeamsData.isValidNumber(Integer.valueOf(teamNumber.getText()));
+            return AttendingTeamsData.isValidNumber(Integer.valueOf(teamNumber.getText()));
         }
         return false;
     }

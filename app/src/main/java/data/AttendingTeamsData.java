@@ -2,7 +2,7 @@ package data;
 
 import calcs.Team;
 
-public class AttengingTeamsData {
+public class AttendingTeamsData {
     static Team[] teams = {
             new Team(125, "NUTRONs"),
             new Team(6329, "The Bucks' Wrath"),
