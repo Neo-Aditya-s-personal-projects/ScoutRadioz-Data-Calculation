@@ -83,7 +83,7 @@ public class AttendingTeamsData {
             new Team(6346, "Cybears Robotics Team"),
             new Team(7913, "'Bear'ly Functioning"),
             new Team(9729, "Knights"),
-            new Team(173, "RAGE Robotics ⚙️"),
+            new Team(173, "RAGE Robotics"),
             new Team(8626, "Cyber Sailors"),
             new Team(236, "Techno-Ticks"),
             new Team(9101, "Green Mountain Robotics"),
@@ -101,10 +101,6 @@ public class AttendingTeamsData {
             new Team(1757, "Wolverines"),
             new Team(3654, "TechTigers")
     };
-
-    public static void setTeamsFromTBA(String eventKey, String apiKey) {
-        teams = AttendingTeams.getTeams(eventKey, apiKey);
-    }
 
     public static boolean isValidNumber(int teamNumber) {
         for (int i = 0; i < teams.length; i++) {
