@@ -10,7 +10,7 @@ import com.google.gson.Gson;
 
 import model.BlueAllianceTeam;
 
-public class TeamsAttending {
+public class AttendingTeams {
     public HashMap<Integer, String> getTeams(String eventKey, String apiKey) {
         HashMap<Integer, String> map = new HashMap<Integer, String>(); 
         HttpClient client = HttpClient.newHttpClient();

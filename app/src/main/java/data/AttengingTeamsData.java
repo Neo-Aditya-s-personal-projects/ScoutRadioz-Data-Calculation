@@ -2,7 +2,7 @@ package data;
 
 import calcs.Team;
 
-public class TeamsAttendingTemp {
+public class AttengingTeamsData {
     static Team[] teams = {
             new Team(125, "NUTRONs"),
             new Team(6329, "The Bucks' Wrath"),
@@ -102,6 +102,9 @@ public class TeamsAttendingTemp {
             new Team(3654, "TechTigers")
     };
 
+    public static void getTeamsFromTBA() {
+        
+    }
     public static boolean isValidNumber(int teamNumber) {
         for (int i = 0; i < teams.length; i++) {
             if (teams[i].getTeamNumber() == teamNumber)
