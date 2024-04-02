@@ -4,15 +4,15 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
-import java.util.HashMap;
 
 import com.google.gson.Gson;
 
+import calcs.Team;
 import model.BlueAllianceTeam;
 
 public class AttendingTeams {
-    public HashMap<Integer, String> getTeams(String eventKey, String apiKey) {
-        HashMap<Integer, String> map = new HashMap<Integer, String>(); 
+    public static Team[] getTeams(String eventKey, String apiKey) {
+        Team[] teams; 
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest
                 .newBuilder()
@@ -24,13 +24,14 @@ public class AttendingTeams {
             HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
             result = response.body();
             Gson gson = new Gson();
-            BlueAllianceTeam[] teams = gson.fromJson(result, BlueAllianceTeam[].class);
-            for (int i = 0; i < teams.length; i++) {
-                map.put(teams[i].getTeamNumber(), teams[i].getName());
+            BlueAllianceTeam[] teamsAttending = gson.fromJson(result, BlueAllianceTeam[].class);
+            teams = new Team[teamsAttending.length];
+            for (int i = 0; i < teamsAttending.length; i++) {
+                teams[i]= new Team(teamsAttending[i].getTeamNumber(), teamsAttending[i].getName());
             }
         } catch (Exception e) {
             System.out.println("Something Broke");
         }
-        return map;
+        return teams;
     }
 }

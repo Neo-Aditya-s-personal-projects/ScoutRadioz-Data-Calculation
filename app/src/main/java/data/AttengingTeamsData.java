@@ -102,9 +102,10 @@ public class AttengingTeamsData {
             new Team(3654, "TechTigers")
     };
 
-    public static void getTeamsFromTBA() {
-        
+    public static void setTeamsFromTBA(String eventKey, String apiKey) {
+        teams = AttendingTeams.getTeams(eventKey, apiKey);
     }
+
     public static boolean isValidNumber(int teamNumber) {
         for (int i = 0; i < teams.length; i++) {
             if (teams[i].getTeamNumber() == teamNumber)
