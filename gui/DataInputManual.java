@@ -1,11 +1,11 @@
 package gui;
 
+import data.AttendingTeamsData;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -13,8 +13,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-
-import data.AttendingTeamsData;
 
 public class DataInputManual implements ActionListener {
 
@@ -50,7 +48,7 @@ public class DataInputManual implements ActionListener {
     private JButton submitButton = new JButton("Submit Data");
 
     public DataInputManual(GUI gui) {
-        new ToggleScreenButton(panel, Screen.AddDataManual, gui);
+        new ToggleScreenButtons(panel, Screen.AddDataManual, gui);
         panel.setBorder(BorderFactory.createMatteBorder(30, 30, 30, 30, Color.BLUE));
         panel.setLayout(null);
         panel.setPreferredSize(new Dimension(1920, 1280));
