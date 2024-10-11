@@ -72,7 +72,7 @@ public class DataTable extends JFrame {
         table.setBounds(31, 90, (1540-61), 1000);
         panel.add(table);
 
-        new ToggleScreenButton(panel, Screen.DataTable, gui);
+        new ToggleScreenButtons(panel, Screen.DataTable, gui);
 
         frame.add(panel, BorderLayout.CENTER);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
