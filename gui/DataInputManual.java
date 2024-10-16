@@ -48,7 +48,7 @@ public class DataInputManual implements ActionListener {
     private JButton submitButton = new JButton("Submit Data");
 
     public DataInputManual(GUI gui) {
-        new ToggleScreenButtons(panel, Screen.AddDataManual, gui);
+        new ToggleScreenButtons(panel, CurrentScreen.AddDataManual, gui);
         panel.setBorder(BorderFactory.createMatteBorder(30, 30, 30, 30, Color.BLUE));
         panel.setLayout(null);
         panel.setPreferredSize(new Dimension(1920, 1280));

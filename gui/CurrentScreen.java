@@ -1,6 +1,6 @@
 package gui;
 
-public enum Screen {
+public enum CurrentScreen {
     DataTable,
     AddDataManual,
     AddDataUpload;

@@ -11,8 +11,8 @@ public class ToggleScreenButtons {
     private final JButton uploadDataButton = new JButton("Upload Data");
     private final JButton dataTableButton = new JButton("View Data");
 
-    public ToggleScreenButtons(JPanel panel, Screen currentScreen, GUI gui) {
-        uploadDataButton.setBounds(currentScreen.equals(Screen.DataTable) ? 560 : 860, currentScreen.equals(Screen.DataTable) ? 31 : 570, 300, 25);
+    public ToggleScreenButtons(JPanel panel, CurrentScreen currentScreen, GUI gui) {
+        uploadDataButton.setBounds(currentScreen.equals(CurrentScreen.DataTable) ? 560 : 860, currentScreen.equals(CurrentScreen.DataTable) ? 31 : 570, 300, 25);
         uploadDataButton.setBackground(Color.BLUE);
         uploadDataButton.setForeground(Color.RED);
         uploadDataButton.addActionListener(new ActionListener() {
@@ -22,7 +22,7 @@ public class ToggleScreenButtons {
             }
         });
 
-        manualDataButton.setBounds(860, currentScreen.equals(Screen.DataTable) ? 31 : 570, 300, 25);
+        manualDataButton.setBounds(860, currentScreen.equals(CurrentScreen.DataTable) ? 31 : 570, 300, 25);
         manualDataButton.setBackground(Color.RED);
         manualDataButton.setForeground(Color.BLUE);
         manualDataButton.addActionListener(new ActionListener() {
