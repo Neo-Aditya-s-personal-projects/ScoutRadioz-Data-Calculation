@@ -1,13 +1,14 @@
 package gui;
 
+import calcs.CalculateTable;
+import data.TeamsData;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.Font;
-
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,15 +17,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import calcs.CalculateTable;
-import data.AttendingTeamsData;
-
 public class DataTable extends JFrame {
 
     private final JFrame frame = new JFrame();
     private final JPanel panel = new JPanel();
     private String[] columnNames = {"Team Number", "Average Auto", "Average Amp", "Average Speaker", "Climb Probability", "Average Passes", "Average Trap", "Total Matches", "Defense Count"};
-    private JTable table = new JTable(new DefaultTableModel(CalculateTable.getDataObjects(AttendingTeamsData.getTeams()), columnNames) {
+    private JTable table = new JTable(new DefaultTableModel(CalculateTable.getDataObjects(TeamsData.getTeams()), columnNames) {
         @Override
         public boolean isCellEditable(int row, int column) {
            return false;
@@ -42,7 +40,7 @@ public class DataTable extends JFrame {
              button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    table.setModel(new DefaultTableModel(CalculateTable.doublestoObjects(CalculateTable.organizeData(CalculateTable.getDataDoubles(AttendingTeamsData.getTeams()), inneri, (lastButtonClicked == inneri))), columnNames)
+                    table.setModel(new DefaultTableModel(CalculateTable.doublestoObjects(CalculateTable.organizeData(CalculateTable.getDataDoubles(TeamsData.getTeams()), inneri, (lastButtonClicked == inneri))), columnNames)
                     {
                         @Override
                         public boolean isCellEditable(int row, int column) {
@@ -50,7 +48,7 @@ public class DataTable extends JFrame {
                         }
                     });
                     lastButtonClicked = (lastButtonClicked == inneri) ? -1 : inneri; 
-                    table.setFont((new Font(table.getFont().getName(), Font.BOLD, 20)));
+                    table.setFont((table.getFont()));
                     table.setRowHeight(table.getRowHeight() + 5);
                     table.setRowMargin(5);
                 }

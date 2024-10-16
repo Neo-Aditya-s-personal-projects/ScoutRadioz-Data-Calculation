@@ -6,13 +6,37 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
 
-public class AttendingTeams {
+public class DataRequest {
+    public static String apiKey;
+
+    public static void setAPIKey(String key) {
+        apiKey = key;
+    }
+    
+    public static String getTeamName(int teamNumber) {
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest
+                .newBuilder()
+                .uri(URI.create("https://www.thebluealliance.com/api/v3/team/frc" + teamNumber + "/simple"))
+                .header("X-TBA-Auth-Key", apiKey)
+                .build();
+        String result = "Invalid Team";
+        try {
+            HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
+            result = response.body().substring(response.body().indexOf("nickname") + 12, response.body().indexOf("state_prov") - 6);
+        }
+        catch (Exception e) {
+            System.out.println("Invalid Team");
+        }
+        return result;
+    }
+
     public static void getTeams(String eventKey, String apiKey) {
         Team[] teams; 
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest
                 .newBuilder()
-                .uri(URI.create("https://www.thebluealliance.com/api/v3/event/" + eventKey + "/teams/simple"))
+                .uri(URI.create("https://www.thebluealliance.com/api/v3/team/" + eventKey + "/simple"))
                 .header("X-TBA-Auth-Key", apiKey)
                 .build();
         String result = null;

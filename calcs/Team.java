@@ -20,6 +20,10 @@ public class Team {
         this.teamName = teamName;
     }
 
+    public Team(int teamNumber) {
+        this(teamNumber, "kys");
+    }
+
     /**
      * This adds a new Match's Data and updates the data to match
      * 
@@ -34,7 +38,7 @@ public class Team {
     public void appendData(String role, int speakerNotes, int ampNotes, int autoNotes, int notesPassed, int trapNotes, boolean climbed) {
         totalAutoNotes += autoNotes;
         totalMatches++;
-        trapNotes += trapNotes;
+        totalTrapNotes += trapNotes;
 
         if (climbed)
             climbCounter++;
@@ -151,6 +155,6 @@ public class Team {
      * @return the chance of the robot climbing 0-1
      */
     public double getCalculatedAverageClimb() {
-        return (totalMatches == 0) ? -1 : (double) (climbCounter / totalMatches);
+        return (totalMatches == 0) ? -1 : ((double)climbCounter / (int)totalMatches);
     }
 }
