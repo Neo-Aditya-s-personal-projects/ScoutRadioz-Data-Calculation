@@ -7,7 +7,6 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 public class ToggleScreenButtons {
-    private final JButton toggleScreen = new JButton("Toggle Screen");
     private final JButton manualDataButton = new JButton("Enter Data");
     private final JButton uploadDataButton = new JButton("Upload Data");
     private final JButton dataTableButton = new JButton("View Data");
