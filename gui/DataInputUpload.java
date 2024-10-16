@@ -1,6 +1,6 @@
 package gui;
 
-import data.TeamsData;
+import data.TeamData;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -111,7 +111,7 @@ public class DataInputUpload implements ActionListener {
                         else if(Integer.valueOf(data[notesPassed]) > (Integer.valueOf(data[speakerNotes]) + 2)) data[role] = "S";
                         else data[role] = "O";
 
-                        TeamsData.appendDataUpload(
+                        TeamData.appendDataUpload(
                             Integer.valueOf(data[teamNumber]), 
                             data[role],
                             Integer.valueOf(data[speakerNotes]),

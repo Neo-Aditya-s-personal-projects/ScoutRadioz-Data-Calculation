@@ -1,5 +1,5 @@
 package calcs;
-
+import data.Request;
 public class Team {
     private final int teamNumber;
     private final String teamName;
@@ -21,7 +21,7 @@ public class Team {
     }
 
     public Team(int teamNumber) {
-        this(teamNumber, "kys");
+        this(teamNumber, Request.getTeamName(teamNumber));
     }
 
     /**

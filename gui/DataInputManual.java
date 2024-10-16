@@ -1,6 +1,6 @@
 package gui;
 
-import data.TeamsData;
+import data.TeamData;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -121,7 +121,7 @@ public class DataInputManual implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (checkDataValidity()) {
-            TeamsData.appendData(Integer.valueOf(teamNumber.getText()), role.getText(), Integer.valueOf(speakerNotes.getText()), Integer.valueOf(ampNotes.getText()), Integer.valueOf(autoNotes.getText()), Integer.valueOf(notesPassed.getText()), Integer.valueOf(trapNotes.getText()), climbed.isSelected());
+            TeamData.appendData(Integer.valueOf(teamNumber.getText()), role.getText(), Integer.valueOf(speakerNotes.getText()), Integer.valueOf(ampNotes.getText()), Integer.valueOf(autoNotes.getText()), Integer.valueOf(notesPassed.getText()), Integer.valueOf(trapNotes.getText()), climbed.isSelected());
             resetScreen();
         }
     }
@@ -183,7 +183,7 @@ public class DataInputManual implements ActionListener {
             isValid = false;
         }
         if (isValid) {
-            return TeamsData.isValidNumber(Integer.valueOf(teamNumber.getText()));
+            return TeamData.isValidNumber(Integer.valueOf(teamNumber.getText()));
         }
         return false;
     }
