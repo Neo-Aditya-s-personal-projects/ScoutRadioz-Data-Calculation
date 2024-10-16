@@ -49,8 +49,6 @@ public class DataTable extends JFrame {
                     });
                     lastButtonClicked = (lastButtonClicked == inneri) ? -1 : inneri; 
                     table.setFont((table.getFont()));
-                    table.setRowHeight(table.getRowHeight() + 5);
-                    table.setRowMargin(5);
                 }
             });
 
