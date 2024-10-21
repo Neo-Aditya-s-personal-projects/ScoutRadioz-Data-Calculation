@@ -14,7 +14,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 public class Welcome implements ActionListener {
-    private GUI gui;
 
     private JFrame frame = new JFrame();
     private JPanel panel = new JPanel();
@@ -27,8 +26,7 @@ public class Welcome implements ActionListener {
 
     private JButton submitButton = new JButton("Submit Data");
 
-    public Welcome(GUI gui) {
-        this.gui = gui;
+    public Welcome() {
 
         panel.setBorder(BorderFactory.createMatteBorder(30, 30, 30, 30, Color.BLUE));
         panel.setLayout(null);
@@ -57,7 +55,7 @@ public class Welcome implements ActionListener {
         frame.pack();
         frame.setVisible(true);
 
-        gui.setFrame(frame);
+        GUI.setFrame(frame);
     }
 
     @Override
@@ -65,7 +63,7 @@ public class Welcome implements ActionListener {
         try {
             if (Request.isValidAPIKey(apiKey.getText(), Integer.valueOf(teamNumber.getText()))) {
                 Request.setAPIKey(apiKey.getText());
-                new DataInputManual(gui);
+                new DataInputManual();
             } 
             else System.out.println("Invalid Team or API Key");
         } catch (Exception exception) {

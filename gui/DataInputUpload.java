@@ -27,8 +27,8 @@ public class DataInputUpload implements ActionListener {
 
     private JButton submitButton = new JButton("Submit Data");
 
-    public DataInputUpload(GUI gui) {
-        new ToggleScreenButtons(panel, CurrentScreen.AddDataUpload, gui);
+    public DataInputUpload() {
+        new ToggleScreenButtons(panel, CurrentScreen.AddDataUpload);
         panel.setBorder(BorderFactory.createMatteBorder(30, 30, 30, 30, Color.BLUE));
         panel.setLayout(null);
         panel.setPreferredSize(new Dimension(1920, 1280));
@@ -53,7 +53,7 @@ public class DataInputUpload implements ActionListener {
         frame.pack();
         frame.setVisible(true);
 
-        gui.setFrame(frame);
+        GUI.setFrame(frame);
     }
 
     @Override
