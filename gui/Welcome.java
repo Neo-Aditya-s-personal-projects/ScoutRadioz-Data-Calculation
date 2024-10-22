@@ -72,7 +72,7 @@ public class Welcome implements ActionListener {
                 if (Request.isValidAPIKey(apiKey.getText(), Integer.valueOf(teamNumber.getText()))) {
                     Request.setAPIKey(apiKey.getText());
                     Constants.USE_TBA = true;
-                    new DataInputManual(gui);
+                    new DataInputManual();
                 } 
                 else System.out.println("Invalid Team or API Key");
             } catch (Exception exception) {
@@ -81,7 +81,7 @@ public class Welcome implements ActionListener {
         }
         else {
             Constants.USE_TBA = false;
-            new DataInputManual(gui);
+            new DataInputManual();
         }
     }
 }
