@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import calcs.Team;
 import com.sun.source.doctree.SystemPropertyTree;
 
+import Constants.Constants;
+
 public class TeamData {
     static ArrayList<Team> teams = new ArrayList<Team>();
 
@@ -24,11 +26,17 @@ public class TeamData {
                 return;
             }
         }
-        if (Request.isValidNumber(teamNumber)) {
+        if (Constants.USE_TBA && Request.isValidNumber(teamNumber)) {
             teams.add(new Team(teamNumber));
             teams.get(teams.size() - 1).appendData(role, speakerNotes, ampNotes, autoNotes, notesPassed, trapNotes, climbed);
         }
-        else System.out.println("Invalid Team");
+        else if (Constants.USE_TBA) {
+            System.out.println("Invalid Team");
+        }
+        else {
+            teams.add(new Team(teamNumber));
+            teams.get(teams.size() - 1).appendData(role, speakerNotes, ampNotes, autoNotes, notesPassed, trapNotes, climbed);
+        }
     }
 
     public static void appendData(int teamNumber, String role, int speakerNotes, int ampNotes, int autoNotes,

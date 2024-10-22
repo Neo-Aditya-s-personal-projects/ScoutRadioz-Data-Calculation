@@ -4,23 +4,23 @@ import javax.swing.JFrame;
 
 public class GUI {
 
-    private JFrame frame = new JFrame();
+    private static JFrame frame = new JFrame();
 
-    public GUI() {
+    public static void open() {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
     }
 
-    public void setFrame(JFrame frame) {
-        this.frame.dispose();
-        this.frame = frame;
+    public static void setFrame(JFrame newFrame) {
+        frame.dispose();
+        frame = newFrame;
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
     }
 
-    public JFrame getFrame() {
+    public static JFrame getFrame() {
         return frame;
     }
 }

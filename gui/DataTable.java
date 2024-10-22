@@ -31,7 +31,7 @@ public class DataTable extends JFrame {
     private JPanel buttonPanel = new JPanel(new GridLayout(1, columnNames.length));
     private int lastButtonClicked = -1;
 
-    public DataTable(GUI gui) {
+    public DataTable() {
         super();
 
         for(int i = 0; i< columnNames.length; i++){
@@ -68,13 +68,13 @@ public class DataTable extends JFrame {
         table.setBounds(31, 90, (1540-61), 1000);
         panel.add(table);
 
-        new ToggleScreenButtons(panel, CurrentScreen.DataTable, gui);
+        new ToggleScreenButtons(panel, CurrentScreen.DataTable);
 
         frame.add(panel, BorderLayout.CENTER);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("Scouting Results");
         frame.pack();
         frame.setVisible(true);
-        gui.setFrame(frame);
+        GUI.setFrame(frame);
     }
 }
