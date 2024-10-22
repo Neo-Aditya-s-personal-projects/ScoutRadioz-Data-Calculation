@@ -1,4 +1,5 @@
 package calcs;
+import Constants.Constants;
 import data.Request;
 public class Team {
     private final int teamNumber;
@@ -21,7 +22,7 @@ public class Team {
     }
 
     public Team(int teamNumber) {
-        this(teamNumber, Request.getTeamName(teamNumber));
+        this(teamNumber, Constants.USE_TBA ? Request.getTeamName(teamNumber) : "N/A");
     }
 
     /**

@@ -8,10 +8,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+
+import Constants.Constants;
 
 public class Welcome implements ActionListener {
 
@@ -24,7 +27,8 @@ public class Welcome implements ActionListener {
     private JLabel labelTeamNumber = new JLabel("What's a valid Team Number?");
     private JTextArea teamNumber = new JTextArea("Team Number");
 
-    private JButton submitButton = new JButton("Submit Data");
+    private JCheckBox enableTBA = new JCheckBox("Do you want to use TBA for checking?");
+    private JButton submitButton = new JButton("Submit");
 
     public Welcome() {
 
@@ -44,6 +48,9 @@ public class Welcome implements ActionListener {
         teamNumber.setBounds(710, 120, 300, 25);
         panel.add(teamNumber);
 
+        enableTBA.setBounds(710, 150, 300, 25);
+        panel.add(enableTBA);
+
         submitButton.setBounds(710, 540, 300, 25);
         submitButton.setBackground(Color.LIGHT_GRAY);
         panel.add(submitButton);
@@ -60,14 +67,21 @@ public class Welcome implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        try {
-            if (Request.isValidAPIKey(apiKey.getText(), Integer.valueOf(teamNumber.getText()))) {
-                Request.setAPIKey(apiKey.getText());
-                new DataInputManual();
-            } 
-            else System.out.println("Invalid Team or API Key");
-        } catch (Exception exception) {
-            System.out.println("Invalid Team Number");
+        if(enableTBA.isSelected()) {
+            try {
+                if (Request.isValidAPIKey(apiKey.getText(), Integer.valueOf(teamNumber.getText()))) {
+                    Request.setAPIKey(apiKey.getText());
+                    Constants.USE_TBA = true;
+                    new DataInputManual(gui);
+                } 
+                else System.out.println("Invalid Team or API Key");
+            } catch (Exception exception) {
+                System.out.println("Invalid Team Number");
+            }
+        }
+        else {
+            Constants.USE_TBA = false;
+            new DataInputManual(gui);
         }
     }
 }
