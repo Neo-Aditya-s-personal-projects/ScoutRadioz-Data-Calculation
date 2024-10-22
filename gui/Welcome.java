@@ -17,7 +17,6 @@ import javax.swing.JTextArea;
 import Constants.Constants;
 
 public class Welcome implements ActionListener {
-    private GUI gui;
 
     private JFrame frame = new JFrame();
     private JPanel panel = new JPanel();
@@ -31,8 +30,7 @@ public class Welcome implements ActionListener {
     private JCheckBox enableTBA = new JCheckBox("Do you want to use TBA for checking?");
     private JButton submitButton = new JButton("Submit");
 
-    public Welcome(GUI gui) {
-        this.gui = gui;
+    public Welcome() {
 
         panel.setBorder(BorderFactory.createMatteBorder(30, 30, 30, 30, Color.BLUE));
         panel.setLayout(null);
@@ -64,7 +62,7 @@ public class Welcome implements ActionListener {
         frame.pack();
         frame.setVisible(true);
 
-        gui.setFrame(frame);
+        GUI.setFrame(frame);
     }
 
     @Override
@@ -74,7 +72,7 @@ public class Welcome implements ActionListener {
                 if (Request.isValidAPIKey(apiKey.getText(), Integer.valueOf(teamNumber.getText()))) {
                     Request.setAPIKey(apiKey.getText());
                     Constants.USE_TBA = true;
-                    new DataInputManual(gui);
+                    new DataInputManual();
                 } 
                 else System.out.println("Invalid Team or API Key");
             } catch (Exception exception) {
@@ -83,7 +81,7 @@ public class Welcome implements ActionListener {
         }
         else {
             Constants.USE_TBA = false;
-            new DataInputManual(gui);
+            new DataInputManual();
         }
     }
 }
