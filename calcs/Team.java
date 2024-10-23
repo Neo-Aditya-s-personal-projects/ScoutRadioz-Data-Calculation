@@ -105,9 +105,54 @@ public class Team {
         return auto.size();
     }
 
-    /**
-     * @return the average speaker notes scored when the robot was playing offense or amp
-     */
+    public double getMinSpeakerNotes() {
+        return (getOffenseCount() == 0) ? Integer.MIN_VALUE : getMin(speaker);
+    }
+
+    public double getMinTrapNotes() {
+        return (getTotalMatches() == 0) ? Integer.MIN_VALUE : getMin(trap);
+    }
+
+    public double getMinAmpNotes() {
+        return (getMainAmpCount() == 0) ? Integer.MIN_VALUE : getMin(amp);
+    }
+
+    public double getMinAutoNotes() {
+        return (getTotalMatches() == 0) ? Integer.MIN_VALUE : getMin(auto);
+    }
+
+    public double getMinNotesPassed() {
+        return (getSupportCount() == 0) ? Integer.MIN_VALUE : getMin(pass);
+    }
+
+    public double getCalculatedMinClimb() {
+        return (getTotalMatches() == 0) ? Integer.MIN_VALUE : getMin(climb);
+    }
+
+    public double getMaxSpeakerNotes() {
+        return (getOffenseCount() == 0) ? Integer.MIN_VALUE : getMax(speaker);
+    }
+
+    public double getMaxTrapNotes() {
+        return (getTotalMatches() == 0) ? Integer.MIN_VALUE : getMax(trap);
+    }
+
+    public double getMaxAmpNotes() {
+        return (getMainAmpCount() == 0) ? Integer.MIN_VALUE : getMax(amp);
+    }
+
+    public double getMaxAutoNotes() {
+        return (getTotalMatches() == 0) ? Integer.MIN_VALUE : getMax(auto);
+    }
+
+    public double getMaxNotesPassed() {
+        return (getSupportCount() == 0) ? Integer.MIN_VALUE : getMax(pass);
+    }
+
+    public double getCalculatedMaxClimb() {
+        return (getTotalMatches() == 0) ? Integer.MIN_VALUE : getMax(climb);
+    }
+
     public double getCalculatedAverageSpeakerNotes() {
         return (getOffenseCount() == 0) ? -1 : getAverage(speaker);
     }
@@ -189,17 +234,25 @@ public class Team {
 
     private double getAverage(ArrayList<Integer> list) {
         double result = 0;
-        for (int i = 0; i < list.size(); i++) {
-            result += list.get(i);
-        }
+        for (int i = 0; i < list.size(); i++) result += list.get(i);
         return result / list.size();
     }
 
     private int getTotal(ArrayList<Integer> list) {
         int result = 0;
-        for (int i = 0; i < list.size(); i++) {
-            result += list.get(i);
-        }
+        for (int i = 0; i < list.size(); i++) result += list.get(i);
         return result;
+    }
+
+    private int getMax(ArrayList<Integer> list) {
+        int max = Integer.MIN_VALUE;
+        for (int i = 0; i < list.size(); i++) max = max < list.get(i) ? list.get(i) : max;
+        return max;
+    }
+
+    private int getMin(ArrayList<Integer> list) {
+        int max = Integer.MAX_VALUE;
+        for (int i = 0; i < list.size(); i++) max = max > list.get(i) ? list.get(i) : max;
+        return max;
     }
 }
