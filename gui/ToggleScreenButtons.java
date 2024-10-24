@@ -3,6 +3,8 @@ package gui;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
@@ -20,14 +22,26 @@ public class ToggleScreenButtons {
     public ToggleScreenButtons(JPanel panel, CurrentScreen currentScreen) {
 
         try {
-            BufferedImage buttonIcon = ImageIO.read(new File("\\pictures\\image.png"));
-            settingsButton = new JButton(new ImageIcon(buttonIcon));
+            BufferedImage unscaledButtonIcon = ImageIO.read(new File("./pictures/image.png"));
+            BufferedImage scaledButtonIcon = new BufferedImage(30, 30, BufferedImage.TYPE_INT_ARGB);
+            AffineTransform transform = new AffineTransform();
+            transform.scale(unscaledButtonIcon.getWidth() < unscaledButtonIcon.getHeight() ? 30.0 / unscaledButtonIcon.getHeight() : 30.0 / unscaledButtonIcon.getWidth(), unscaledButtonIcon.getWidth() < unscaledButtonIcon.getHeight() ? 30.0 / unscaledButtonIcon.getHeight() : 30.0 / unscaledButtonIcon.getWidth());
+            AffineTransformOp scaleOp = new AffineTransformOp(transform, AffineTransformOp.TYPE_BILINEAR);
+            scaledButtonIcon = scaleOp.filter(unscaledButtonIcon, scaledButtonIcon);
+
+            settingsButton = new JButton(new ImageIcon(scaledButtonIcon));
         } 
         catch (Exception e) {
             System.out.println(e.getMessage());
         }
         
         settingsButton.setBounds(30, 30, 30, 30);
+        settingsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new Settings();
+            }
+        });
         panel.add(settingsButton);
 
         uploadDataButton.setBounds(currentScreen.equals(CurrentScreen.DataTable) ? 560 : 860, currentScreen.equals(CurrentScreen.DataTable) ? 31 : 570, 300, 25);

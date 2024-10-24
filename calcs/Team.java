@@ -235,7 +235,7 @@ public class Team {
     private double getAverage(ArrayList<Integer> list) {
         double result = 0;
         for (int i = 0; i < list.size(); i++) result += list.get(i);
-        return result / list.size();
+        return result / (double) list.size();
     }
 
     private int getTotal(ArrayList<Integer> list) {
