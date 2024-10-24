@@ -79,14 +79,6 @@ public class Request {
             HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
             result = response.body();
             System.out.println(result);
-            /*ArrayList<Team> teams = new ArrayList<Team>();
-
-            Gson gson = new Gson();
-            BlueAllianceTeam[] teamsAttending = gson.fromJson(result, BlueAllianceTeam[].class);
-            teams = new Team[teamsAttending.length];
-            for (int i = 0; i < teamsAttending.length; i++) {
-                teams[i]= new Team(teamsAttending[i].getTeamNumber(), teamsAttending[i].getName());
-            } */
         } catch (Exception e) {
             System.out.println("Something Broke");
         }

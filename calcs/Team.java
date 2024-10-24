@@ -125,7 +125,7 @@ public class Team {
         return (getSupportCount() == 0) ? Integer.MIN_VALUE : getMin(pass);
     }
 
-    public double getCalculatedMinClimb() {
+    public double getMinClimb() {
         return (getTotalMatches() == 0) ? Integer.MIN_VALUE : getMin(climb);
     }
 
@@ -149,7 +149,7 @@ public class Team {
         return (getSupportCount() == 0) ? Integer.MIN_VALUE : getMax(pass);
     }
 
-    public double getCalculatedMaxClimb() {
+    public double getMaxClimb() {
         return (getTotalMatches() == 0) ? Integer.MIN_VALUE : getMax(climb);
     }
 

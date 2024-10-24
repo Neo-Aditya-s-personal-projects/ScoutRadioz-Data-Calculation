@@ -3,12 +3,11 @@ package data;
 import java.util.ArrayList;
 
 import calcs.Team;
-import com.sun.source.doctree.SystemPropertyTree;
 
 import Constants.Constants;
 
 public class TeamData {
-    static ArrayList<Team> teams = new ArrayList<Team>();
+    static ArrayList<Team> teams = new ArrayList<>();
 
     public static boolean isValidNumber(int teamNumber) {
         for (int i = 0; i < teams.size(); i++) {

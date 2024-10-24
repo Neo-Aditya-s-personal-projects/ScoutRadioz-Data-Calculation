@@ -21,8 +21,8 @@ public class DataTable extends JFrame {
 
     private final JFrame frame = new JFrame();
     private final JPanel panel = new JPanel();
-    private String[] columnNames = {"Team Number", "Average Auto", "Average Amp", "Average Speaker", "Climb Probability", "Average Passes", "Average Trap", "Total Matches", "Defense Count"};
-    private JTable table = new JTable(new DefaultTableModel(CalculateTable.getDataObjects(TeamData.getTeams()), columnNames) {
+    private String[] columnNames = {"Team Number", "Auto", "Amp", "Speaker", "Climb", "Passes", "Trap", "Matches", "Defense"};
+    private JTable table = new JTable(new DefaultTableModel(CalculateTable.getDataObjects(TeamData.getTeams(), Settings.tableCalcSetting), columnNames) {
         @Override
         public boolean isCellEditable(int row, int column) {
            return false;
@@ -40,7 +40,7 @@ public class DataTable extends JFrame {
              button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    table.setModel(new DefaultTableModel(CalculateTable.doublestoObjects(CalculateTable.organizeData(CalculateTable.getDataDoubles(TeamData.getTeams()), inneri, (lastButtonClicked == inneri))), columnNames)
+                    table.setModel(new DefaultTableModel(CalculateTable.doublestoObjects(CalculateTable.organizeData(CalculateTable.getDataDoubles(TeamData.getTeams(), Settings.tableCalcSetting), inneri, (lastButtonClicked == inneri))), columnNames)
                     {
                         @Override
                         public boolean isCellEditable(int row, int column) {
