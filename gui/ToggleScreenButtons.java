@@ -22,7 +22,7 @@ public class ToggleScreenButtons {
     public ToggleScreenButtons(JPanel panel, CurrentScreen currentScreen) {
 
         try {
-            BufferedImage unscaledButtonIcon = ImageIO.read(new File("./pictures/image.png"));
+            BufferedImage unscaledButtonIcon = ImageIO.read(new File("./pictures/settingsButtonIcon.png"));
             BufferedImage scaledButtonIcon = new BufferedImage(30, 30, BufferedImage.TYPE_INT_ARGB);
             AffineTransform transform = new AffineTransform();
             transform.scale(unscaledButtonIcon.getWidth() < unscaledButtonIcon.getHeight() ? 30.0 / unscaledButtonIcon.getHeight() : 30.0 / unscaledButtonIcon.getWidth(), unscaledButtonIcon.getWidth() < unscaledButtonIcon.getHeight() ? 30.0 / unscaledButtonIcon.getHeight() : 30.0 / unscaledButtonIcon.getWidth());
