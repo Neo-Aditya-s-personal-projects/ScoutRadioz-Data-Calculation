@@ -30,7 +30,7 @@ public class DataTable extends JFrame {
 
     private final JRadioButton[] tableOrganizationOptions = new JRadioButton[Constants.TABLE_SETTINGS_OPTIONS.length];
     private final ButtonGroup tableOrganizationButtonGroup = new ButtonGroup();
-    private JTable table = new JTable(new DefaultTableModel(CalculateTable.getDataObjects(TeamData.getTeams(), Settings.tableCalcSetting), columnNames) {
+    private JTable table = new JTable(new DefaultTableModel(CalculateTable.getDataObjects(TeamData.getTeams(), tableCalcSetting), columnNames) {
         @Override
         public boolean isCellEditable(int row, int column) {
            return false;
@@ -98,7 +98,7 @@ public class DataTable extends JFrame {
         table.setBounds(31, 120, (1540-61), 1000);
         panel.add(table);
 
-        new ToggleScreenButtons(panel, CurrentScreen.DataTable);
+        new ToggleScreenButtons(panel, Screen.DataTable);
 
         frame.add(panel, BorderLayout.CENTER);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
