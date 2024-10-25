@@ -19,7 +19,7 @@ public class ToggleScreenButtons {
     private final JButton dataTableButton = new JButton("View Data");
     private JButton settingsButton = new JButton("Settings");
 
-    public ToggleScreenButtons(JPanel panel, CurrentScreen currentScreen) {
+    public ToggleScreenButtons(JPanel panel, Screen currentScreen) {
 
         try {
             BufferedImage unscaledButtonIcon = ImageIO.read(new File("./pictures/settingsButtonIcon.png"));
@@ -44,7 +44,7 @@ public class ToggleScreenButtons {
         });
         panel.add(settingsButton);
 
-        uploadDataButton.setBounds(currentScreen.equals(CurrentScreen.DataTable) ? 560 : 860, currentScreen.equals(CurrentScreen.DataTable) ? 31 : 570, 300, 25);
+        uploadDataButton.setBounds(currentScreen.equals(Screen.DataTable) ? 560 : 860, currentScreen.equals(Screen.DataTable) ? 31 : 570, 300, 25);
         uploadDataButton.setBackground(Color.BLUE);
         uploadDataButton.setForeground(Color.RED);
         uploadDataButton.addActionListener(new ActionListener() {
@@ -54,7 +54,7 @@ public class ToggleScreenButtons {
             }
         });
 
-        manualDataButton.setBounds(860, currentScreen.equals(CurrentScreen.DataTable) ? 31 : 570, 300, 25);
+        manualDataButton.setBounds(860, currentScreen.equals(Screen.DataTable) ? 31 : 570, 300, 25);
         manualDataButton.setBackground(Color.RED);
         manualDataButton.setForeground(Color.BLUE);
         manualDataButton.addActionListener(new ActionListener() {
