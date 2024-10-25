@@ -5,47 +5,49 @@ public class CalculateTable {
     public static double[][] getDataDoubles(Team[] teams, String setting) {
         double[][] data = new double[teams.length][];
         for (int i = 0; i < teams.length; i++) {
-            if (setting.equals("Average")) {
-                double[] teamData = {
-                    teams[i].getTeamNumber(), 
-                    teams[i].getCalculatedAverageAutoNotes(), 
-                    teams[i].getCalculatedAverageAmpNotes(),
-                    teams[i].getCalculatedAverageSpeakerNotes(),
-                    teams[i].getCalculatedAverageClimb(),
-                    teams[i].getCalculatedAverageNotesPassed(),
-                    teams[i].getCalculatedAverageTrapNotes(),
-                    teams[i].getTotalMatches(),
-                    teams[i].getDefenseCount()
-                };
-                data[i] = teamData;
-            }
-            else if (setting.equals("Max")) {
-                double[] teamData = {
-                    teams[i].getTeamNumber(), 
-                    teams[i].getMaxAutoNotes(), 
-                    teams[i].getMaxAmpNotes(),
-                    teams[i].getMaxSpeakerNotes(),
-                    teams[i].getMaxClimb(),
-                    teams[i].getMaxNotesPassed(),
-                    teams[i].getMaxTrapNotes(),
-                    teams[i].getTotalMatches(),
-                    teams[i].getDefenseCount()
-                };
-                data[i] = teamData;
-            }
-            else if (setting.equals("Min")) {
-                double[] teamData = {
-                    teams[i].getTeamNumber(), 
-                    teams[i].getMinAutoNotes(), 
-                    teams[i].getMinAmpNotes(),
-                    teams[i].getMinSpeakerNotes(),
-                    teams[i].getMinClimb(),
-                    teams[i].getMinNotesPassed(),
-                    teams[i].getMinTrapNotes(),
-                    teams[i].getTotalMatches(),
-                    teams[i].getDefenseCount()
-                };
-                data[i] = teamData;
+            switch (setting) {
+                case  "Average" -> {
+                    double[] teamData = {
+                        teams[i].getTeamNumber(), 
+                        teams[i].getCalculatedAverageAutoNotes(), 
+                        teams[i].getCalculatedAverageAmpNotes(),
+                        teams[i].getCalculatedAverageSpeakerNotes(),
+                        teams[i].getCalculatedAverageClimb(),
+                        teams[i].getCalculatedAverageNotesPassed(),
+                        teams[i].getCalculatedAverageTrapNotes(),
+                        teams[i].getTotalMatches(),
+                        teams[i].getDefenseCount()
+                    };
+                    data[i] = teamData;
+                }
+                case "Max" -> {
+                    double[] teamData = {
+                        teams[i].getTeamNumber(), 
+                        teams[i].getMaxAutoNotes(), 
+                        teams[i].getMaxAmpNotes(),
+                        teams[i].getMaxSpeakerNotes(),
+                        teams[i].getMaxClimb(),
+                        teams[i].getMaxNotesPassed(),
+                        teams[i].getMaxTrapNotes(),
+                        teams[i].getTotalMatches(),
+                        teams[i].getDefenseCount()
+                    };
+                    data[i] = teamData;
+                }
+                case "Min" -> {
+                    double[] teamData = {
+                        teams[i].getTeamNumber(), 
+                        teams[i].getMinAutoNotes(), 
+                        teams[i].getMinAmpNotes(),
+                        teams[i].getMinSpeakerNotes(),
+                        teams[i].getMinClimb(),
+                        teams[i].getMinNotesPassed(),
+                        teams[i].getMinTrapNotes(),
+                        teams[i].getTotalMatches(),
+                        teams[i].getDefenseCount()
+                    };
+                    data[i] = teamData;
+                }
             }
         }
         return data;
