@@ -80,7 +80,7 @@ public class DataInputUpload implements ActionListener {
             for (int i = 0; i < dataLabels.length; i++) {
                 if (dataLabels[i].equals("preMatchStart")) validity = i;
                 else if (dataLabels[i].equals("team_key")) teamNumber = i;
-                else if (dataLabels[i].equals("playedDefense")) role = i;
+                else if (dataLabels[i].equals("role")) role = i;
                 else if (dataLabels[i].equals("totalSpeakerNotes")) speakerNotes = i;
                 else if (dataLabels[i].equals("totalAmpNotes")) ampNotes = i;
                 else if (dataLabels[i].equals("totalAutoNotes")) autoNotes = i;
@@ -102,7 +102,8 @@ public class DataInputUpload implements ActionListener {
                         data[notesPassed] = data[notesPassed].replaceAll("\"", "").trim().replaceAll("\uFEFF", "");
                         data[autoNotes] = data[autoNotes].replaceAll("\"", "").trim().replaceAll("\uFEFF", "");
                         data[trapNotes] = data[trapNotes].replaceAll("\"", "").trim().replaceAll("\uFEFF", "");
-                        if(data[role].equals("1")) data[role] = "D";
+                        data[climbed] = data[climbed].replaceAll("\"", "").trim().replaceAll("\uFEFF", "");
+                        if(data[role].equals("Defense")) data[role] = "D";
                         else if(
                             (Integer.valueOf(data[ampNotes]) > (Integer.valueOf(data[speakerNotes]) - 2)) && 
                             (Integer.valueOf(data[ampNotes]) > (Integer.valueOf(data[notesPassed]) - 2)) && 
@@ -119,7 +120,7 @@ public class DataInputUpload implements ActionListener {
                             Integer.valueOf(data[autoNotes]),
                             Integer.valueOf(data[notesPassed]),
                             Integer.valueOf(data[trapNotes]),
-                            data[climbed].equals("1")
+                            !(data[climbed].equals("Parked") || data[climbed].equals("Not Parked"))
                             );
                     }
                 }

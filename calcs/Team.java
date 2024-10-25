@@ -1,20 +1,20 @@
 package calcs;
 import Constants.Constants;
 import data.Request;
+import java.util.ArrayList;
 public class Team {
     private final int teamNumber;
     private final String teamName;
-    private int totalSpeakerNotes = 0;
-    private int totalAmpNotes = 0;
-    private int totalAutoNotes = 0;
-    private int totalNotesPassed = 0;
-    private int totalTrapNotes = 0;
-    private int defenseCounter = 0;
-    private int supportCounter = 0;
-    private int offenseCounter = 0;
-    private int climbCounter = 0;
-    private int mainAmpCounter = 0;
-    private int totalMatches = 0;
+    private final ArrayList<Integer> speaker = new ArrayList<Integer>();
+    private final ArrayList<Integer> amp = new ArrayList<Integer>();
+    private final ArrayList<Integer> auto = new ArrayList<Integer>();
+    private final ArrayList<Integer> pass = new ArrayList<Integer>();
+    private final ArrayList<Integer> trap = new ArrayList<Integer>();
+    private final ArrayList<Integer> climb = new ArrayList<Integer>();
+    private final ArrayList<Integer> defense = new ArrayList<Integer>();
+    private final ArrayList<Integer> support = new ArrayList<Integer>();
+    private final ArrayList<Integer> offense = new ArrayList<Integer>();
+    private final ArrayList<Integer> mainAmp = new ArrayList<Integer>();
 
     public Team(int teamNumber, String teamName) {
         this.teamNumber = teamNumber;
@@ -37,32 +37,20 @@ public class Team {
      * @param climbed      If the robot sucessfully climbed
      */
     public void appendData(String role, int speakerNotes, int ampNotes, int autoNotes, int notesPassed, int trapNotes, boolean climbed) {
-        totalAutoNotes += autoNotes;
-        totalMatches++;
-        totalTrapNotes += trapNotes;
+        auto.add(autoNotes);
+        trap.add(trapNotes);
 
-        if (climbed)
-            climbCounter++;
+        climb.add(climbed ? 1 : 0);
+        offense.add(role.equalsIgnoreCase("O") ? 1 : 0);
+        defense.add(role.equalsIgnoreCase("D") ? 1 : 0);
+        support.add(role.equalsIgnoreCase("S") ? 1 : 0);
+        mainAmp.add(role.equalsIgnoreCase("A") ? 1 : 0);
 
-        if (role.equalsIgnoreCase("O")) {
-            offenseCounter++;
-            totalSpeakerNotes += speakerNotes;
-            //totalAmpNotes += ampNotes;
-        }
+        if (role.equalsIgnoreCase("O")) speaker.add(speakerNotes);
 
-        if (role.equalsIgnoreCase("A")) {
-            mainAmpCounter++;
-            totalAmpNotes += ampNotes;
-        }
+        if (role.equalsIgnoreCase("A")) amp.add(ampNotes);
 
-        if (role.equalsIgnoreCase("D")) {
-            defenseCounter++;
-        }
-
-        if (role.equalsIgnoreCase("S")) {
-            supportCounter++;
-            totalNotesPassed += notesPassed;
-        }
+        if (role.equalsIgnoreCase("S")) pass.add(notesPassed);
     }
 
     public int getTeamNumber() {
@@ -74,88 +62,197 @@ public class Team {
     }
 
     public int getTotalSpeakerNotes() {
-        return this.totalSpeakerNotes;
+        return getTotal(speaker);
     }
 
     public int getTotalAmpNotes() {
-        return this.totalAmpNotes;
+        return getTotal(amp);
     }
 
     public int getTotalAutoNotes() {
-        return this.totalAutoNotes;
+        return getTotal(auto);
     }
 
     public int getTotalNotesPassed() {
-        return this.totalNotesPassed;
+        return getTotal(pass);
     }
 
     public int getTotalTrapNotes() {
-        return this.totalTrapNotes;
+        return getTotal(trap);
     }
 
     public int getDefenseCount() {
-        return this.defenseCounter;
+        return getTotal(defense);
     }
 
     public int getSupportCount() {
-        return this.supportCounter;
+        return getTotal(support);
     }
 
     public int getOffenseCount() {
-        return this.offenseCounter;
+        return getTotal(offense);
     }
 
     public int getClimbCount() {
-        return this.climbCounter;
+        return getTotal(climb);
     }
 
     public int getMainAmpCount() {
-        return this.mainAmpCounter;
+        return getTotal(mainAmp);
     }
 
     public int getTotalMatches() {
-        return this.totalMatches;
+        return auto.size();
     }
 
-    /**
-     * @return the average speaker notes scored when the robot was playing offense or amp
-     */
+    public double getMinSpeakerNotes() {
+        return (getOffenseCount() == 0) ? Integer.MIN_VALUE : getMin(speaker);
+    }
+
+    public double getMinTrapNotes() {
+        return (getTotalMatches() == 0) ? Integer.MIN_VALUE : getMin(trap);
+    }
+
+    public double getMinAmpNotes() {
+        return (getMainAmpCount() == 0) ? Integer.MIN_VALUE : getMin(amp);
+    }
+
+    public double getMinAutoNotes() {
+        return (getTotalMatches() == 0) ? Integer.MIN_VALUE : getMin(auto);
+    }
+
+    public double getMinNotesPassed() {
+        return (getSupportCount() == 0) ? Integer.MIN_VALUE : getMin(pass);
+    }
+
+    public double getMinClimb() {
+        return (getTotalMatches() == 0) ? Integer.MIN_VALUE : getMin(climb);
+    }
+
+    public double getMaxSpeakerNotes() {
+        return (getOffenseCount() == 0) ? Integer.MIN_VALUE : getMax(speaker);
+    }
+
+    public double getMaxTrapNotes() {
+        return (getTotalMatches() == 0) ? Integer.MIN_VALUE : getMax(trap);
+    }
+
+    public double getMaxAmpNotes() {
+        return (getMainAmpCount() == 0) ? Integer.MIN_VALUE : getMax(amp);
+    }
+
+    public double getMaxAutoNotes() {
+        return (getTotalMatches() == 0) ? Integer.MIN_VALUE : getMax(auto);
+    }
+
+    public double getMaxNotesPassed() {
+        return (getSupportCount() == 0) ? Integer.MIN_VALUE : getMax(pass);
+    }
+
+    public double getMaxClimb() {
+        return (getTotalMatches() == 0) ? Integer.MIN_VALUE : getMax(climb);
+    }
+
     public double getCalculatedAverageSpeakerNotes() {
-        return (offenseCounter == 0) ? -1 : (double) totalSpeakerNotes / offenseCounter;
+        return (getOffenseCount() == 0) ? -1 : getAverage(speaker);
     }
 
     /**
      * @return the average trap notes scored when the robot was playing offense or amp
      */
     public double getCalculatedAverageTrapNotes() {
-        return (totalMatches == 0) ? -1 : (double) (totalTrapNotes / totalMatches);
+        return (getTotalMatches() == 0) ? -1 : getAverage(trap);
     }
 
     /**
      * @return the average Amp notes scored when the robot was playing offense or amp
      */
     public double getCalculatedAverageAmpNotes() {
-        return (mainAmpCounter == 0) ? -1 : (double) (totalAmpNotes / mainAmpCounter);
+        return (getMainAmpCount() == 0) ? -1 : getAverage(amp);
     }
 
     /**
      * @return the average notes scored in Auto
      */
     public double getCalculatedAverageAutoNotes() {
-        return (totalMatches == 0) ? -1 : (double) (totalAutoNotes / totalMatches);
+        return (getTotalMatches() == 0) ? -1 : getAverage(auto);
     }
 
     /**
      * @return the average notes Passed when the robot was playing support
      */
     public double getCalculatedAverageNotesPassed() {
-        return (supportCounter == 0) ? -1 : (double) (totalNotesPassed / supportCounter);
+        return (getSupportCount() == 0) ? -1 : getAverage(pass);
     }
 
     /**
      * @return the chance of the robot climbing 0-1
      */
     public double getCalculatedAverageClimb() {
-        return (totalMatches == 0) ? -1 : ((double)climbCounter / (int)totalMatches);
+        return (getTotalMatches() == 0) ? -1 : getAverage(climb);
+    }
+
+    public ArrayList<Integer> getSpeakerHistory() {
+        return new ArrayList(speaker);
+    }
+
+    public ArrayList<Integer> getAmpHistory() {
+        return new ArrayList(amp);
+    }
+
+    public ArrayList<Integer> getAutoHistory() {
+        return new ArrayList(auto);
+    }
+
+    public ArrayList<Integer> getPassHistory() {
+        return new ArrayList(pass);
+    }
+
+    public ArrayList<Integer> getTrapHistory() {
+        return new ArrayList(trap);
+    }
+
+    public ArrayList<Integer> getClimbHistory() {
+        return new ArrayList(climb);
+    }
+
+    public ArrayList<Integer> getDefenseRoleHistory() {
+        return new ArrayList(defense);
+    }
+
+    public ArrayList<Integer> getSupportRoleHistory() {
+        return new ArrayList(support);
+    }
+
+    public ArrayList<Integer> getOffenseRoleHistory() {
+        return new ArrayList(offense);
+    }
+
+    public ArrayList<Integer> getMainAmpRoleHistory() {
+        return new ArrayList(mainAmp);
+    }
+
+    private double getAverage(ArrayList<Integer> list) {
+        double result = 0;
+        for (int i = 0; i < list.size(); i++) result += list.get(i);
+        return result / (double) list.size();
+    }
+
+    private int getTotal(ArrayList<Integer> list) {
+        int result = 0;
+        for (int i = 0; i < list.size(); i++) result += list.get(i);
+        return result;
+    }
+
+    private int getMax(ArrayList<Integer> list) {
+        int max = Integer.MIN_VALUE;
+        for (int i = 0; i < list.size(); i++) max = max < list.get(i) ? list.get(i) : max;
+        return max;
+    }
+
+    private int getMin(ArrayList<Integer> list) {
+        int max = Integer.MAX_VALUE;
+        for (int i = 0; i < list.size(); i++) max = max > list.get(i) ? list.get(i) : max;
+        return max;
     }
 }
