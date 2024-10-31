@@ -3,6 +3,7 @@ package gui;
 import calcs.CalculateGraph;
 import calcs.Team;
 import data.TeamData;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -27,23 +28,23 @@ public class GraphSelector extends JPanel {
 
     private final JLabel graphTypeLabel = new JLabel("What type of Graph do you want?");
     private final String[] graphTypes = {"All Teams", "Specific Team/s"};
-    private final JToggleButton graphTypeToggle = new JToggleButton("Select Graph");
+    private final JButton graphTypeToggle = new JButton("Select Graph");
     private final JPopupMenu graphTypePopUp = new JPopupMenu();
 
     private final JLabel addTeamNumberLabel = new JLabel("Add Team");
     private final ArrayList<Integer> availableTeamNumbers;
-    private final JToggleButton addTeamNumberToggle = new JToggleButton("Select Team");
+    private final JButton addTeamNumberToggle = new JButton("Select Team");
     private final JPopupMenu addTeamNumberPopUp = new JPopupMenu();
 
     private final JLabel removeTeamNumberLabel = new JLabel("Remove Team");
     private final ArrayList<Integer> selectedTeamNumbers = new ArrayList<>();
-    private final JToggleButton removeTeamNumberToggle = new JToggleButton("Select Team");
+    private final JButton removeTeamNumberToggle = new JButton("Select Team");
     private final JPopupMenu removeTeamNumberPopUp = new JPopupMenu();
 
     private final JLabel teamNumbersSelectedLabel = new JLabel("");
 
     private final JLabel dataAnalyzedLabel = new JLabel("Which data are you analyzing?");
-    private final JToggleButton dataAnalyzedToggle = new JToggleButton("Select Data Type");
+    private final JButton dataAnalyzedToggle = new JButton("Select Data Type");
     private final JPopupMenu dataAnalyzedPopUp = new JPopupMenu();
 
     private final JButton submitButton = new JButton("Submit");
@@ -51,7 +52,7 @@ public class GraphSelector extends JPanel {
     public GraphSelector() {
         super();
 
-        new ToggleScreenButtons(panel, Screen.DataTable);
+        new ToggleScreenButtons(panel, Screen.GraphSelector);
         panel.setBorder(BorderFactory.createMatteBorder(30, 30, 30, 30, Color.BLUE));
         panel.setLayout(null);
         panel.setPreferredSize(new Dimension(1920, 1280));
@@ -88,28 +89,28 @@ public class GraphSelector extends JPanel {
         graphTypeToggle.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                graphTypePopUp.setVisible(graphTypeToggle.isEnabled());
+                graphTypePopUp.setVisible(!graphTypePopUp.isVisible());
             }
         });
         
         addTeamNumberToggle.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                addTeamNumberPopUp.setVisible(addTeamNumberToggle.isEnabled());
+                addTeamNumberPopUp.setVisible(!addTeamNumberPopUp.isVisible());
             }
         });
 
         removeTeamNumberToggle.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                removeTeamNumberPopUp.setVisible(removeTeamNumberToggle.isEnabled());
+                removeTeamNumberPopUp.setVisible(!removeTeamNumberPopUp.isVisible());
             }
         });
 
         dataAnalyzedToggle.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dataAnalyzedPopUp.setVisible(dataAnalyzedToggle.isEnabled());
+                dataAnalyzedPopUp.setVisible(!dataAnalyzedPopUp.isVisible());
             }
         });
 
@@ -117,7 +118,6 @@ public class GraphSelector extends JPanel {
         panel.add(graphTypeLabel);
 
         graphTypeToggle.setBounds(710, 90, 300, 25);
-        graphTypeToggle.setEnabled(false);
         panel.add(graphTypeToggle);
 
         graphTypePopUp.setBounds(710, 90 + 25, 300, 100);
@@ -128,7 +128,6 @@ public class GraphSelector extends JPanel {
         panel.add(addTeamNumberLabel);
 
         addTeamNumberToggle.setBounds(710, 270, 300, 25);
-        addTeamNumberToggle.setEnabled(false);
         panel.add(addTeamNumberToggle);
 
         removeTeamNumberPopUp.setBounds(710, 270 + 25, 300, 100);
@@ -139,7 +138,6 @@ public class GraphSelector extends JPanel {
         panel.add(removeTeamNumberLabel);
 
         removeTeamNumberToggle.setBounds(710, 450, 300, 25);
-        removeTeamNumberToggle.setEnabled(false);
         panel.add(removeTeamNumberToggle);
 
         removeTeamNumberPopUp.setBounds(710, 450 + 25, 300, 100);
@@ -150,26 +148,73 @@ public class GraphSelector extends JPanel {
         teamNumbersSelectedLabel.setFont(new Font(addTeamNumberLabel.getFont().getName(), addTeamNumberLabel.getFont().getStyle(), addTeamNumberLabel.getFont().getSize() / 2));
         panel.add(teamNumbersSelectedLabel);
 
-        addTeamNumberLabel.setBounds(710, 630, 300, 25);
-        panel.add(addTeamNumberLabel);
+        dataAnalyzedLabel.setBounds(710, 630, 300, 25);
+        panel.add(dataAnalyzedLabel);
 
-        addTeamNumberToggle.setBounds(710, 660, 300, 25);
-        addTeamNumberToggle.setEnabled(false);
-        panel.add(addTeamNumberToggle);
+        dataAnalyzedToggle.setBounds(710, 660, 300, 25);
+        panel.add(dataAnalyzedToggle);
 
-        addTeamNumberPopUp.setBounds(710, 660 + 25, 300, 100);
-        addTeamNumberPopUp.setVisible(false);
-        panel.add(addTeamNumberPopUp);
+        dataAnalyzedPopUp.setBounds(710, 660 + 25, 300, 100);
+        dataAnalyzedPopUp.setVisible(false);
+        panel.add(dataAnalyzedPopUp);
+
 
         submitButton.setBounds(710, 810, 300, 25);
         submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+                if (graphTypeToggle.getText().equals("Select Graph")) System.out.println("Error: Graph Type Not Selected");
+                else if (dataAnalyzedToggle.getText().equals("Select Data Type")) System.out.println("Error: Data Type Not Selected");
+                else if (graphTypeToggle.getText().equals("All Teams")) {
+                    ArrayList<Integer>[] data = new ArrayList[CalculateGraph.getTeamNumbers(TeamData.getTeams()).length];
+                    int indexOfTarget = 0;
+                    while (!(Team.getDataNames()[indexOfTarget].equals(dataAnalyzedToggle.getText()))) indexOfTarget++;
+                    for (int i = 0; i < data.length; i++) data[i] = TeamData.getTeams()[i].getDataHistory()[indexOfTarget];
+
+                    Graph graph = new Graph("Matches", Team.getDataNames()[indexOfTarget], CalculateGraph.getTeamNumbers(TeamData.getTeams()), data);
+                    JFrame frameTemp = new JFrame("Scout Graph");
+
+                    graph.setPreferredSize(new Dimension(1920, 1280));
+                    frameTemp.add(graph);
+                    frameTemp.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    frameTemp.setTitle("Match Scouting");
+                    frameTemp.pack();
+                    frameTemp.setVisible(true);
+                }
+                else {
+                    ArrayList<Integer>[] data = new ArrayList[teamNumbersSelectedLabel.getText().split(", ").length];
+                    int[] teamNumbers = new int[data.length];
+                    int indexOfTarget = 0;
+                    while (!(Team.getDataNames()[indexOfTarget].equals(dataAnalyzedToggle.getText()))) indexOfTarget++;
+                    for (int i = 0; i < teamNumbersSelectedLabel.getText().split(", ").length; i++) teamNumbers[i] = Integer.valueOf(teamNumbersSelectedLabel.getText().split(", ")[i]);
+                    int index = 0;
+                    for (Team team : TeamData.getTeams()) {
+                        if (team.getTeamNumber() == teamNumbers[index]) {
+                            data[index] = team.getDataHistory()[indexOfTarget];
+                            index++;
+                        }
+                    }
+
+                    Graph graph = new Graph("Matches", Team.getDataNames()[indexOfTarget], CalculateGraph.getTeamNumbers(TeamData.getTeams()), data);
+                    JFrame frameTemp = new JFrame("Scout Graph");
+
+                    graph.setPreferredSize(new Dimension(1920, 1280));
+                    frameTemp.add(graph);
+                    frameTemp.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    frameTemp.setTitle("Match Scouting");
+                    frameTemp.pack();
+                    frameTemp.setVisible(true);
+                }
             }
         });
         panel.add(submitButton);
-        
+
+        frame.add(panel, BorderLayout.CENTER);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setTitle("Scouting Results");
+        frame.pack();
+        frame.setVisible(true);
+        GUI.setFrame(frame);
     }
 
     private void updateTeamNumber() {

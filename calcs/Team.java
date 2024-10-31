@@ -25,7 +25,18 @@ public class Team {
     private final int ampDefault =  -1;
     private final int passDefault = -1;
 
-    private static final String[] dataNames = {"Auto Notes", "Trap Notes", "Speaker Notes", "Amp Notes", "Notes Passed", "Climbed", "Main Defense", "Main Support", "Main Speaker", "Main Amp"};
+    private static final String[] dataNames = {
+        "Auto Notes", 
+        "Trap Notes", 
+        "Speaker Notes", 
+        "Amp Notes", 
+        "Notes Passed", 
+        "Climbed", 
+        "Main Defense", 
+        "Main Support", 
+        "Main Speaker", 
+        "Main Amp"
+    };
 
     public Team(int teamNumber, String teamName) {
         this.teamNumber = teamNumber;
@@ -294,6 +305,21 @@ public class Team {
 
     public static String[] getDataNames() {
         return dataNames;
+    }
+
+    public ArrayList<Integer>[] getDataHistory() {
+        return (new ArrayList[]{
+            getAutoHistory(), 
+            getTrapHistory(), 
+            getSpeakerHistory(), 
+            getAmpHistory(), 
+            getPassHistory(), 
+            getClimbHistory(), 
+            getDefenseRoleHistory(), 
+            getSupportRoleHistory(), 
+            getOffenseRoleHistory(), 
+            getMainAmpRoleHistory()
+        });
     }
 
     private double getAverage(ArrayList<Integer> list) {
