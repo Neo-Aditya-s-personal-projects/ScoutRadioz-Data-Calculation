@@ -1,24 +1,23 @@
 package gui;
 
+import java.awt.AlphaComposite;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Random;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class Graph extends JPanel {
-    private int padding = 25;
-    private int labelPadding = 25;
+    private int padding = 100;
     private final Random r = new Random();
     private final int[] teams;
     private final ArrayList<Integer>[] data;
     private final String xAxisLabel;
     private final String yAxisLabel;
     private final ArrayList<Color> lineColors = new ArrayList<>();
-    private int height = 1160;
-    private int width = 1800;
 
     public Graph(String xAxisLabel, String yAxisLabel, int[] teams, ArrayList<Integer>[] data) {
         this.xAxisLabel = xAxisLabel;
@@ -30,6 +29,10 @@ public class Graph extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        removeAll();
+
+        int height = getHeight();
+        int width = getWidth();
 
         Graphics2D graphics = (Graphics2D) g;
         graphics.drawLine(padding, height - padding, width - padding, height - padding); // X-axis
@@ -57,5 +60,10 @@ public class Graph extends JPanel {
                 graphics.drawLine(x1, y1, x2, y2);
             }
         }
+
+        graphics.setColor(Color.BLACK);
+        graphics.drawString(xAxisLabel, (width - padding) / 2, height - (padding / 2));
+        graphics.rotate(3 * Math.PI / 2, padding / 2, (height - padding) / 2);
+        graphics.drawString(yAxisLabel, padding / 2, (height - padding) / 2);
     }
 }
