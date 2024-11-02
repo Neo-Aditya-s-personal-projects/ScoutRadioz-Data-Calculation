@@ -171,7 +171,7 @@ public class GraphSelector extends JPanel {
                     while (!(Team.getDataNames()[indexOfTarget].equals(dataAnalyzedToggle.getText()))) indexOfTarget++;
                     for (int i = 0; i < data.length; i++) data[i] = TeamData.getTeams()[i].getDataHistory()[indexOfTarget];
 
-                    Graph graph = new Graph("Matches", Team.getDataNames()[indexOfTarget], CalculateGraph.getTeamNumbers(TeamData.getTeams()), data);
+                    Graph graph = new Graph("Matches", Team.getDataNames()[indexOfTarget], CalculateGraph.getTeamNumbers(TeamData.getTeams()), data, 12, 10);
                     JFrame frameTemp = new JFrame("Scout Graph");
 
                     graph.setPreferredSize(new Dimension(1920, 1280));
@@ -195,7 +195,7 @@ public class GraphSelector extends JPanel {
                         }
                     }
 
-                    Graph graph = new Graph("Matches", Team.getDataNames()[indexOfTarget], CalculateGraph.getTeamNumbers(TeamData.getTeams()), data);
+                    Graph graph = new Graph("Matches", Team.getDataNames()[indexOfTarget], CalculateGraph.getTeamNumbers(TeamData.getTeams()), data, 12, 10);
                     JFrame frameTemp = new JFrame("Scout Graph");
 
                     graph.setPreferredSize(new Dimension(1920, 1280));
