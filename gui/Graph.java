@@ -1,6 +1,5 @@
 package gui;
 
-import java.awt.AlphaComposite;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -9,7 +8,6 @@ import java.awt.Rectangle;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Random;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class Graph extends JPanel {
@@ -56,13 +54,13 @@ public class Graph extends JPanel {
 
         Graphics2D graphics = (Graphics2D) g;
         for (double i = 0; i < lineColors.size(); i++) {
-            int length = (int) (height / (2 * (lineColors.size() - 1)));
-            Rectangle rect = new Rectangle(padding, (int) (padding + 2 * length * i), length, length);
+            int length = (int) ((height - 2 * padding) / (3 * (lineColors.size() - 1)));
+            Rectangle rect = new Rectangle(padding, (int) (padding + 3 * length * i), length, length);
             graphics.setColor(lineColors.get((int) i));
             graphics.draw(rect);
             graphics.fill(rect);
             graphics.setColor(Color.BLACK);
-            graphics.drawString(String.valueOf(teams[(int) i]), padding + length, (int) (padding + 2 * length * i));
+            graphics.drawString(String.valueOf(teams[(int) i]), padding + length * 2, (int) (padding + 3 * length * i + length));
         }
 
         graphics.translate(xOffset, yOffset);
