@@ -220,14 +220,24 @@ public class GraphSelector extends JPanel {
     private void updateTeamNumber() {
         for (int i = 0; i < addTeamNumberPopUp.getComponentCount(); i++) addTeamNumberPopUp.remove(i);
         for (int i = 0; i < removeTeamNumberPopUp.getComponentCount(); i++) removeTeamNumberPopUp.remove(i);
+        
+        boolean firstNumberAdded = false;
+        teamNumbersSelectedLabel.setText("");
+        for (Integer num : selectedTeamNumbers) {
+            if (num != null) {
+                if (firstNumberAdded) teamNumbersSelectedLabel.setText(teamNumbersSelectedLabel.getText() + ", ");
+                else firstNumberAdded = true;
+                teamNumbersSelectedLabel.setText(teamNumbersSelectedLabel.getText() + String.valueOf(num));
+            }
+        }
 
         for (int teamNumber : availableTeamNumbers) {
             JMenuItem tempMenuItem = new JMenuItem("" + teamNumber);
             tempMenuItem.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    teamNumbersSelectedLabel.setText(teamNumbersSelectedLabel.getText() + ", " + tempMenuItem.getText());
-                    availableTeamNumbers.remove(availableTeamNumbers.lastIndexOf(teamNumber));
+                    selectedTeamNumbers.add(teamNumber);
+                    availableTeamNumbers.remove(availableTeamNumbers.indexOf(teamNumber));
                     updateTeamNumber();
                 }
             });
@@ -240,8 +250,8 @@ public class GraphSelector extends JPanel {
             tempMenuItem.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    teamNumbersSelectedLabel.setText(teamNumbersSelectedLabel.getText().replaceAll(", " + tempMenuItem.getText(), ""));
                     selectedTeamNumbers.remove(selectedTeamNumbers.lastIndexOf(teamNumber));
+                    availableTeamNumbers.add(teamNumber);
                     updateTeamNumber();
                 }
             });
