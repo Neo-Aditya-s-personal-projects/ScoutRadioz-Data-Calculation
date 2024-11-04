@@ -5,6 +5,7 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Random;
@@ -12,6 +13,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class Graph extends JPanel {
+    private int yOffset = 0;
+    private int xOffset = 300;
     private int padding = 100;
     private int sectionLineLengthIn = 12; //Inside the graph box
     private int sectionLineLengthOut = 12; //Outside graph box
@@ -23,6 +26,8 @@ public class Graph extends JPanel {
     private final ArrayList<Color> lineColors = new ArrayList<>();
     private final int xSections;
     private final int ySections;
+    private int maxX = 0;
+    private int maxY = 0;
 
     public Graph(String xAxisLabel, String yAxisLabel, int[] teams, ArrayList<Integer>[] data, int xSections, int ySections) {
         this.xAxisLabel = xAxisLabel;
@@ -31,6 +36,14 @@ public class Graph extends JPanel {
         this.teams = teams;
         this.ySections = ySections;
         this.xSections = xSections;
+
+        for (ArrayList<Integer> values : data) {
+            values.remove(null);
+            for (Integer datapoint : values) maxY = maxY < datapoint ? datapoint : maxY;
+            maxX = (values.size() - 1) > maxX ? (values.size() - 1) : maxX;
+            lineColors.add(new Color(r.nextInt(256), r.nextInt(256), r.nextInt(256), 180));
+        }
+        lineColors.remove(null);
     }
 
     @Override
@@ -38,20 +51,24 @@ public class Graph extends JPanel {
         super.paintComponent(g);
         removeAll();
 
-        int height = getHeight();
-        int width = getWidth();
+        int height = getHeight() - yOffset;
+        int width = getWidth() - xOffset;
 
         Graphics2D graphics = (Graphics2D) g;
+        for (double i = 0; i < lineColors.size(); i++) {
+            int length = (int) (height / (2 * (lineColors.size() - 1)));
+            Rectangle rect = new Rectangle(padding, (int) (padding + 2 * length * i), length, length);
+            graphics.setColor(lineColors.get((int) i));
+            graphics.draw(rect);
+            graphics.fill(rect);
+            graphics.setColor(Color.BLACK);
+            graphics.drawString(String.valueOf(teams[(int) i]), padding + length, (int) (padding + 2 * length * i));
+        }
+
+        graphics.translate(xOffset, yOffset);
+
         graphics.drawLine(padding, height - padding, width - padding, height - padding); // X-axis
         graphics.drawLine(padding, padding, padding, height - padding); // Y-axis
-
-        double maxY = 0;
-        double maxX = 0;
-        for (ArrayList<Integer> values : data) {
-            for (Integer datapoint : values) maxY = maxY < datapoint ? datapoint : maxY;
-            maxX = (values.size() - 1) > maxX ? (values.size() - 1) : maxX;
-            lineColors.add(new Color(r.nextInt(256), r.nextInt(256), r.nextInt(256), 180));
-        }
 
         double xScale = (double) (width - 2 * padding) / maxX;
         double yScale = (double) (height - 2 * padding) / maxY;
