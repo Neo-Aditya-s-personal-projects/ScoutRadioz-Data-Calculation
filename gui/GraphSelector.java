@@ -145,7 +145,7 @@ public class GraphSelector extends JPanel {
         panel.add(removeTeamNumberPopUp);
 
         teamNumbersSelectedLabel.setBounds(710, 580, 300, 20);
-        teamNumbersSelectedLabel.setFont(new Font(addTeamNumberLabel.getFont().getName(), addTeamNumberLabel.getFont().getStyle(), addTeamNumberLabel.getFont().getSize() / 2));
+        teamNumbersSelectedLabel.setFont(new Font(addTeamNumberLabel.getFont().getName(), addTeamNumberLabel.getFont().getStyle(), addTeamNumberLabel.getFont().getSize()));
         panel.add(teamNumbersSelectedLabel);
 
         dataAnalyzedLabel.setBounds(710, 630, 300, 25);
@@ -187,11 +187,9 @@ public class GraphSelector extends JPanel {
                     int indexOfTarget = 0;
                     while (!(Team.getDataNames()[indexOfTarget].equals(dataAnalyzedToggle.getText()))) indexOfTarget++;
                     for (int i = 0; i < teamNumbersSelectedLabel.getText().split(", ").length; i++) teamNumbers[i] = Integer.valueOf(teamNumbersSelectedLabel.getText().split(", ")[i]);
-                    int index = 0;
                     for (Team team : TeamData.getTeams()) {
-                        if (team.getTeamNumber() == teamNumbers[index]) {
-                            data[index] = team.getDataHistory()[indexOfTarget];
-                            index++;
+                        for (int i = 0; i < teamNumbers.length; i++) {
+                        if (team.getTeamNumber() == teamNumbers[i]) data[i] = team.getDataHistory()[indexOfTarget];
                         }
                     }
 
@@ -218,8 +216,8 @@ public class GraphSelector extends JPanel {
     }
 
     private void updateTeamNumber() {
-        for (int i = 0; i < addTeamNumberPopUp.getComponentCount(); i++) addTeamNumberPopUp.remove(i);
-        for (int i = 0; i < removeTeamNumberPopUp.getComponentCount(); i++) removeTeamNumberPopUp.remove(i);
+        addTeamNumberPopUp.removeAll();
+        removeTeamNumberPopUp.removeAll();
         
         boolean firstNumberAdded = false;
         teamNumbersSelectedLabel.setText("");
