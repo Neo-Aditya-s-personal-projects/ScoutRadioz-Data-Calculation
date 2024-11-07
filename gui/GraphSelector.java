@@ -182,18 +182,16 @@ public class GraphSelector extends JPanel {
                     frameTemp.setVisible(true);
                 }
                 else {
-                    ArrayList<Integer>[] data = new ArrayList[teamNumbersSelectedLabel.getText().split(", ").length];
-                    int[] teamNumbers = new int[data.length];
+                    ArrayList<Integer>[] data = new ArrayList[selectedTeamNumbers.size()];
                     int indexOfTarget = 0;
                     while (!(Team.getDataNames()[indexOfTarget].equals(dataAnalyzedToggle.getText()))) indexOfTarget++;
-                    for (int i = 0; i < teamNumbersSelectedLabel.getText().split(", ").length; i++) teamNumbers[i] = Integer.valueOf(teamNumbersSelectedLabel.getText().split(", ")[i]);
                     for (Team team : TeamData.getTeams()) {
-                        for (int i = 0; i < teamNumbers.length; i++) {
-                        if (team.getTeamNumber() == teamNumbers[i]) data[i] = team.getDataHistory()[indexOfTarget];
+                        for (int i = 0; i < selectedTeamNumbers.size(); i++) {
+                        if (team.getTeamNumber() == selectedTeamNumbers.get(i)) data[i] = team.getDataHistory()[indexOfTarget];
                         }
                     }
 
-                    Graph graph = new Graph("Matches", Team.getDataNames()[indexOfTarget], CalculateGraph.getTeamNumbers(TeamData.getTeams()), data, 12, 10);
+                    Graph graph = new Graph("Matches", Team.getDataNames()[indexOfTarget], selectedTeamNumbers, data, 12, 10);
                     JFrame frameTemp = new JFrame("Scout Graph");
 
                     graph.setPreferredSize(new Dimension(1920, 1280));
