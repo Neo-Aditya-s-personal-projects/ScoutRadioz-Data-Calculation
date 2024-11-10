@@ -36,18 +36,18 @@ public class Graph extends JPanel {
         this.xSections = xSections;
 
         for (ArrayList<Integer> values : data) {
-            values.remove(null);
+            values.removeAll(null);
             for (Integer datapoint : values) maxY = maxY < datapoint ? datapoint : maxY;
-            maxX = (values.size() - 1) > maxX ? (values.size() - 1) : maxX;
+            maxX = values.size() > maxX ? values.size() : maxX;
             lineColors.add(new Color(r.nextInt(256), r.nextInt(256), r.nextInt(256), 180));
         }
-        lineColors.remove(null);
+        lineColors.removeAll(null);
     }
 
     public Graph(String xAxisLabel, String yAxisLabel, int[] teams, ArrayList<Integer>[] data, int xSections, int ySections) {
         ArrayList<Integer> teamsList = new ArrayList<>();
         for (int team : teams) teamsList.add(team);
-        teamsList.remove(null);
+        teamsList.removeAll(null);
         
         this.xAxisLabel = xAxisLabel;
         this.yAxisLabel = yAxisLabel;
@@ -57,12 +57,13 @@ public class Graph extends JPanel {
         this.xSections = xSections;
 
         for (ArrayList<Integer> values : data) {
-            values.remove(null);
+            values.removeAll(null);
             for (Integer datapoint : values) maxY = maxY < datapoint ? datapoint : maxY;
-            maxX = (values.size() - 1) > maxX ? (values.size() - 1) : maxX;
+            maxX = values.size() > maxX ? values.size() : maxX;
             lineColors.add(new Color(r.nextInt(256), r.nextInt(256), r.nextInt(256), 180));
         }
-        lineColors.remove(null);
+        maxX--;
+        lineColors.removeAll(null);
     }
 
     @Override
@@ -94,15 +95,23 @@ public class Graph extends JPanel {
         double yScale = (double) (height - 2 * padding) / maxY;
 
         for (double i = 1; i <= ySections; i++) {
-            int yLocation = (int) (((height - padding)) * (i / (ySections + 2)));
-            graphics.drawLine(padding + sectionLineLengthOut, yLocation, padding - sectionLineLengthIn, yLocation); //Y Lines
+            double ratio = (double) maxY / ySections; 
+            graphics.drawLine(padding + sectionLineLengthOut, (int) (height - padding - i * ratio * yScale), padding - sectionLineLengthIn, (int) (height - padding - i * ratio * yScale)); //Y Lines
             DecimalFormat df = new DecimalFormat("#.##");
-            graphics.drawString(df.format((height - padding - yLocation) / yScale), padding / 2, yLocation - 1);
+            graphics.drawString(df.format(i * ratio), padding / 2, (int) (height - padding - i * ratio * yScale + 1));
         } 
+
+        for (double i = 1; i <= xSections; i++) {
+            double ratio = (double) maxX / xSections; 
+            graphics.drawLine((int) (padding + i * ratio * xScale), height - padding + sectionLineLengthOut, (int) (padding + i * ratio * xScale), height - padding - sectionLineLengthIn); //Y Lines
+            DecimalFormat df = new DecimalFormat("#.##");
+            graphics.drawString(df.format((i * ratio) + 1), (int) (padding + i * ratio * xScale + 1), height - (padding / 2));
+        }
 
         for(int i = 0; i < data.length; i++) {
             graphics.setColor(lineColors.get(i));
             graphics.setStroke(new BasicStroke(2));
+            graphics.drawLine(padding, height - padding, (int) (padding + 1 * xScale), (int) (height - padding - data[i].get(0) * yScale));
             for (int j = 0; j < data[i].size() - 1; j++) {
                 int x1 = (int) (padding + j * xScale);
                 int y1 = (int) (height - padding - data[i].get(j) * yScale);
