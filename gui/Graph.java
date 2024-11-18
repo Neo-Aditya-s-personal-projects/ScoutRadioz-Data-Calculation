@@ -36,18 +36,15 @@ public class Graph extends JPanel {
         this.xSections = xSections;
 
         for (ArrayList<Integer> values : data) {
-            values.removeAll(null);
             for (Integer datapoint : values) maxY = maxY < datapoint ? datapoint : maxY;
             maxX = values.size() > maxX ? values.size() : maxX;
             lineColors.add(new Color(r.nextInt(256), r.nextInt(256), r.nextInt(256), 180));
         }
-        lineColors.removeAll(null);
     }
 
     public Graph(String xAxisLabel, String yAxisLabel, int[] teams, ArrayList<Integer>[] data, int xSections, int ySections) {
         ArrayList<Integer> teamsList = new ArrayList<>();
         for (int team : teams) teamsList.add(team);
-        teamsList.removeAll(null);
         
         this.xAxisLabel = xAxisLabel;
         this.yAxisLabel = yAxisLabel;
@@ -57,13 +54,11 @@ public class Graph extends JPanel {
         this.xSections = xSections;
 
         for (ArrayList<Integer> values : data) {
-            values.removeAll(null);
             for (Integer datapoint : values) maxY = maxY < datapoint ? datapoint : maxY;
             maxX = values.size() > maxX ? values.size() : maxX;
             lineColors.add(new Color(r.nextInt(256), r.nextInt(256), r.nextInt(256), 180));
         }
         maxX--;
-        lineColors.removeAll(null);
     }
 
     @Override
@@ -103,7 +98,7 @@ public class Graph extends JPanel {
 
         for (double i = 1; i <= xSections; i++) {
             double ratio = (double) maxX / xSections; 
-            graphics.drawLine((int) (padding + i * ratio * xScale), height - padding + sectionLineLengthOut, (int) (padding + i * ratio * xScale), height - padding - sectionLineLengthIn); //Y Lines
+            graphics.drawLine((int) (padding + i * ratio * xScale), height - padding + sectionLineLengthOut, (int) (padding + i * ratio * xScale), height - padding - sectionLineLengthIn); //X Lines
             DecimalFormat df = new DecimalFormat("#.##");
             graphics.drawString(df.format((i * ratio) + 1), (int) (padding + i * ratio * xScale + 1), height - (padding / 2));
         }
