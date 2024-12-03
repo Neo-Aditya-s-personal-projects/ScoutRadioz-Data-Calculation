@@ -2,7 +2,7 @@ package gui;
 
 public enum Screen {
     DataTable,
+    GraphSelector,
     AddDataManual,
-    AddDataUpload,
-    Settings;
+    AddDataUpload;
 }

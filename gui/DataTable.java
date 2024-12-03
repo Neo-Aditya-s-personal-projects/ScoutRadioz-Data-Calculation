@@ -42,6 +42,7 @@ public class DataTable extends JFrame {
     public DataTable() {
         super();
 
+        new ToggleScreenButtons(panel, Screen.DataTable);
         panel.setBorder(BorderFactory.createMatteBorder(30, 30, 30, 30, Color.BLUE));
         panel.setLayout(null);
         panel.setPreferredSize(new Dimension(1920, 1280));
@@ -97,8 +98,6 @@ public class DataTable extends JFrame {
 
         table.setBounds(31, 120, (1540-61), 1000);
         panel.add(table);
-
-        new ToggleScreenButtons(panel, Screen.DataTable);
 
         frame.add(panel, BorderLayout.CENTER);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
