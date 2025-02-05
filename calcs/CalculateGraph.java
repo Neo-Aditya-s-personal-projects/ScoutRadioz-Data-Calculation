@@ -11,24 +11,22 @@ public class CalculateGraph {
         return teamNumbers;
     }
 
-    public static ArrayList<Integer>[][] getDataList(Team[] teams) {
-        ArrayList<Integer>[][] data = new ArrayList[teams.length][];
+    public static ArrayList<Number>[][] getDataList(Team[] teams) {
+        ArrayList<Number>[][] data = new ArrayList[teams.length][];
         for (int i = 0; i < teams.length; i++) {
-            ArrayList<Integer> teamNumber = new ArrayList<>();
+            ArrayList<Number> teamNumber = new ArrayList<>();
             teamNumber.add(teams[i].getTeamNumber());
-            ArrayList<Integer>[] teamData = new ArrayList[Team.getDataNames().length];
-            teamData[0] = teamNumber;
-            teamData[1] = teams[i].getAutoHistory();
-            teamData[2] = teams[i].getTrapHistory();
-            teamData[3] = teams[i].getSpeakerHistory();
-            teamData[4] = teams[i].getAmpHistory();
-            teamData[5] = teams[i].getPassHistory();
-            teamData[6] = teams[i].getClimbHistory();
-            teamData[7] = teams[i].getDefenseRoleHistory();
-            teamData[8] = teams[i].getSupportRoleHistory();
-            teamData[9] = teams[i].getOffenseRoleHistory();
-            teamData[10] = teams[i].getMainAmpRoleHistory();
-            data[i] = teamData;
+            ArrayList<Number>[] teamData = new ArrayList[Team.getDataNames().length];
+            try {
+                teamData[0] = teamNumber;
+                for (int j = 0; j < Team.getDataNames().length; j++) {
+                    teamData[j + 1] = teams[i].getDataHistory()[j];
+                }
+                data[i] = teamData;
+            }
+            catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
         }
         return data; 
     }

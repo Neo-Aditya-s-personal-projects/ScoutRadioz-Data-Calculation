@@ -1,6 +1,7 @@
 package gui;
 
 import calcs.CalculateTable;
+import constants.Constants;
 import data.TeamData;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -18,8 +19,6 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-
-import Constants.Constants;
 
 public class DataTable extends JFrame {
 

@@ -1,10 +1,9 @@
 package data;
 
-import java.util.ArrayList;
-
 import calcs.Team;
+import constants.Constants;
 
-import Constants.Constants;
+import java.util.ArrayList;
 
 public class TeamData {
     static ArrayList<Team> teams = new ArrayList<>();
@@ -17,32 +16,30 @@ public class TeamData {
         return false;
     }
 
-    public static void appendDataUpload(int teamNumber, String role, int speakerNotes, int ampNotes, int autoNotes,
-            int notesPassed, int trapNotes, boolean climbed) {
+    public static void appendDataUpload(int teamNumber, String role, int autoCoral, int autoMissedCoral, int totalNet, int totalBarge, int totalKnocked, int teleCoral, int teleMissedCoral, String endState) {
         for (int i = 0; i < teams.size(); i++) {
             if (teams.get(i).getTeamNumber() == teamNumber) {
-                teams.get(i).appendData(role, speakerNotes, ampNotes, autoNotes, notesPassed, trapNotes, climbed);
+                teams.get(i).appendData(role, autoCoral, autoMissedCoral, totalNet, totalBarge, totalKnocked, teleCoral, teleMissedCoral, endState);
                 return;
             }
         }
         if (Constants.USE_TBA && Request.isValidNumber(teamNumber)) {
             teams.add(new Team(teamNumber));
-            teams.get(teams.size() - 1).appendData(role, speakerNotes, ampNotes, autoNotes, notesPassed, trapNotes, climbed);
+            teams.get(teams.size() - 1).appendData(role, autoCoral, autoMissedCoral, totalNet, totalBarge, totalKnocked, teleCoral, teleMissedCoral, endState);
         }
         else if (Constants.USE_TBA) {
             System.out.println("Invalid Team");
         }
         else {
             teams.add(new Team(teamNumber));
-            teams.get(teams.size() - 1).appendData(role, speakerNotes, ampNotes, autoNotes, notesPassed, trapNotes, climbed);
+            teams.get(teams.size() - 1).appendData(role, autoCoral, autoMissedCoral, totalNet, totalBarge, totalKnocked, teleCoral, teleMissedCoral, endState);
         }
     }
 
-    public static void appendData(int teamNumber, String role, int speakerNotes, int ampNotes, int autoNotes,
-            int notesPassed, int trapNotes, boolean climbed) {
+    public static void appendData(int teamNumber, String role, int autoCoral, int autoMissedCoral, int totalNet, int totalBarge, int totalKnocked, int teleCoral, int teleMissedCoral, String endState) {
         for (int i = 0; i < teams.size(); i++) {
             if (teams.get(i).getTeamNumber() == teamNumber) {
-                teams.get(i).appendData(role, speakerNotes, ampNotes, autoNotes, notesPassed, trapNotes, climbed);
+                teams.get(i).appendData(role, autoCoral, autoMissedCoral, totalNet, totalBarge, totalKnocked, teleCoral, teleMissedCoral, endState);
                 return;
             }
         }

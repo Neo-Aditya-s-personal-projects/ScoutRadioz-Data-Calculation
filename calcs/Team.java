@@ -1,60 +1,72 @@
 package calcs;
-import Constants.Constants;
 import data.Request;
 import java.util.ArrayList;
+
+import constants.Constants;
 public class Team {
     private final int teamNumber;
     private final String teamName;
     
-    private final ArrayList<Integer> auto;
-    private final ArrayList<Integer> trap;
-    private final ArrayList<Integer> climb;
-    private final ArrayList<Integer> defense;
-    private final ArrayList<Integer> support;
-    private final ArrayList<Integer> offense;
-    private final ArrayList<Integer> mainAmp;
-    private final ArrayList<Integer> speaker;
-    private final ArrayList<Integer> amp;
-    private final ArrayList<Integer> pass;
+    private final ArrayList<Number> auto;
+    private final ArrayList<Number> missAuto;
+    private final ArrayList<Number> net;
+    private final ArrayList<Number> barge;
+    private final ArrayList<Number> coral;
+    private final ArrayList<Number> knock;
+    private final ArrayList<Number> missTele;
+    private final ArrayList<Number> shallow;
+    private final ArrayList<Number> deep;
+    private final ArrayList<Number> offense;
+    private final ArrayList<Number> defense;
+    private final ArrayList<Number> matchConsistency;
 
-    private final ArrayList<Integer> speakerFiltered;
-    private final ArrayList<Integer> ampFiltered;
-    private final ArrayList<Integer> passFiltered;
-
-    private final int speakerDefault = -1;
-    private final int ampDefault =  -1;
-    private final int passDefault = -1;
+    private final int defaultValue = -1;
 
     private static final String[] dataNames = {
-        "Auto Notes", 
-        "Trap Notes", 
-        "Speaker Notes", 
-        "Amp Notes", 
-        "Notes Passed", 
-        "Climbed", 
-        "Main Defense", 
-        "Main Support", 
-        "Main Speaker", 
-        "Main Amp"
+        "Auto Coral", 
+        "Auto Miss",
+        "Algae Scored in Net", 
+        "Algae Scored in Barge",
+        "Algae Kocked off Reef",
+        "Teleop Coral", 
+        "Teleop Coral Missed", 
+        "Climbed Shallow", 
+        "Climbed Deep", 
+        "Main Offense",
+        "Main Defense",
+        "Match Weighted Consistency"
+    };
+
+    private static final String[] dataNamesCalculated = {
+        "Auto Coral", 
+        "Auto Miss",
+        "Algae Scored in Net", 
+        "Algae Scored in Barge",
+        "Algae Kocked off Reef",
+        "Teleop Coral", 
+        "Teleop Coral Missed", 
+        "Climbed Shallow", 
+        "Climbed Deep", 
+        "Main Offense",
+        "Main Defense",
+        "Match Weighted Consistency"
     };
 
     public Team(int teamNumber, String teamName) {
         this.teamNumber = teamNumber;
         this.teamName = teamName;
         auto = new ArrayList<>();
-        trap = new ArrayList<>();
-        climb = new ArrayList<>();
-        defense = new ArrayList<>();
-        support = new ArrayList<>();
+        missAuto = new ArrayList<>();
+        net = new ArrayList<>();
+        barge = new ArrayList<>();
+        knock = new ArrayList<>();
+        coral = new ArrayList<>();
+        missTele = new ArrayList<>();
+        shallow = new ArrayList<>();
+        deep = new ArrayList<>();
         offense = new ArrayList<>();
-        mainAmp = new ArrayList<>();
-        speaker = new ArrayList<>();
-        amp = new ArrayList<>();
-        pass = new ArrayList<>();
-
-        speakerFiltered = new ArrayList<>();
-        ampFiltered = new ArrayList<>();
-        passFiltered = new ArrayList<>();
+        defense = new ArrayList<>();
+        matchConsistency = new ArrayList<>();
     }
 
     public Team(int teamNumber) {
@@ -64,52 +76,51 @@ public class Team {
     public Team(Team team) {
         teamNumber = team.getTeamNumber();
         teamName = team.getTeamName();
-
+        
         auto = team.getAutoHistory();
-        trap = team.getTrapHistory();
-        climb = team.getClimbHistory();
-        defense = team.getDefenseRoleHistory();
-        support = team.getSupportRoleHistory();
-        offense = team.getOffenseRoleHistory();
-        mainAmp = team.getMainAmpRoleHistory();
-        speaker = team.getSpeakerHistory();
-        amp = team.getAmpHistory();
-        pass = team.getPassHistory();
-
-        speakerFiltered = team.getFilteredSpeakerHistory();
-        ampFiltered = team.getFilteredAmpHistory();
-        passFiltered = team.getFilteredPassHistory();
+        missAuto = team.getAutoMissHistory();
+        net = team.getNetHistory();
+        barge = team.getBargeHistory();
+        knock = team.getKnockHistory();
+        coral = new ArrayList<>();
+        missTele = new ArrayList<>();
+        shallow = new ArrayList<>();
+        deep = new ArrayList<>();
+        offense = new ArrayList<>();
+        defense = new ArrayList<>();
+        matchConsistency = new ArrayList<>();
     }
 
     /**
-     * This adds a new Match's Data and updates the data to match
-     * 
-     * @param role         The robot's role "D" for Defense, "A" for Main Amp, "S" for Support, & "O" for Offense
-     * @param speakerNotes Amount of Speaker notes the robot scored in Teleop
-     * @param ampNotes     Amount of Amp notes the robot scored in Teleop
-     * @param autoNotes    Amount of Notes the robot scored in Auto
-     * @param notesPassed  Amount of notes the robot passed in Teleop
-     * @param trapNotes    Amount of Trap notes the robot scored
-     * @param climbed      If the robot sucessfully climbed
+     * @param role The robot's role "D" for Defense & "O" for Offense
+     * @param autoCoral The Amount of Coral the Robot scored in Auto
+     * @param autoMissedCoral The Amount of Coral the Robot missed in Auto
+     * @param totalNet The Amount of Algae that the Robot scored in the Net
+     * @param totalBarge The Amount of Algae that the Robot scored in the Barge
+     * @param totalKnocked The Amount of Algae that the Robot removed from the reef
+     * @param teleCoral The Amount of Coral the Robot scored in Auto
+     * @param teleMissedCoral The Amount of Coral the Robot missed in Auto
+     * @param endState The robot's end position when the match ends "D" for Deep "S" for Shallow, & "O" for Other
      */
-    public void appendData(String role, int speakerNotes, int ampNotes, int autoNotes, int notesPassed, int trapNotes, boolean climbed) {
-        auto.add(autoNotes);
-        trap.add(trapNotes);
-        speaker.add(speakerNotes);
-        amp.add(ampNotes);
-        pass.add(notesPassed);
-
-        climb.add(climbed ? 1 : 0);
-        offense.add(role.equalsIgnoreCase("O") ? 1 : 0);
-        defense.add(role.equalsIgnoreCase("D") ? 1 : 0);
-        support.add(role.equalsIgnoreCase("S") ? 1 : 0);
-        mainAmp.add(role.equalsIgnoreCase("A") ? 1 : 0);
-
-        if (role.equalsIgnoreCase("O")) speakerFiltered.add(speakerNotes);
-
-        if (role.equalsIgnoreCase("A")) ampFiltered.add(ampNotes);
-
-        if (role.equalsIgnoreCase("S")) passFiltered.add(notesPassed);
+    public void appendData(String role, int autoCoral, int autoMissedCoral, int totalNet, int totalBarge, int totalKnocked, int teleCoral, int teleMissedCoral, String endState) {
+        auto.add(autoCoral);
+        missAuto.add(autoMissedCoral);
+        shallow.add(endState.equals("S") ? 1 : 0);
+        deep.add(endState.equals("D") ? 1 : 0);
+        if (role.equalsIgnoreCase("O")) {
+            net.add(totalNet);
+            barge.add(totalBarge);
+            knock.add(totalKnocked);
+            coral.add(teleCoral);
+            missTele.add(teleMissedCoral);
+            matchConsistency.add((double) teleMissedCoral / teleCoral);
+            offense.add(1);
+            defense.add(0);
+        }
+        else {
+            offense.add(0);
+            defense.add(1);
+        }
     }
 
     public int getTeamNumber() {
@@ -120,229 +131,281 @@ public class Team {
         return teamName;
     }
 
-    public int getTotalSpeakerNotes() {
-        return getTotal(speakerFiltered);
+    public double getAverageAuto() {
+        return getAverage(auto);
     }
 
-    public int getTotalAmpNotes() {
-        return getTotal(ampFiltered);
+    public double getAverageAutoMiss() {
+        return getAverage(missAuto);
     }
 
-    public int getTotalAutoNotes() {
-        return getTotal(auto);
+    public double getAverageNet() {
+        return getAverage(net);
     }
 
-    public int getTotalNotesPassed() {
-        return getTotal(passFiltered);
+    public double getAverageBarge() {
+        return getAverage(barge);
     }
 
-    public int getTotalTrapNotes() {
-        return getTotal(trap);
+    public double getAverageCoral() {
+        return getAverage(coral);
     }
 
-    public int getDefenseCount() {
-        return getTotal(defense);
+    public double getAverageKnock() {
+        return getAverage(knock);
     }
 
-    public int getSupportCount() {
-        return getTotal(support);
+    public double getAverageMissTele() {
+        return getAverage(missTele);
     }
 
-    public int getOffenseCount() {
-        return getTotal(offense);
+    public double getAverageShallow() {
+        return getAverage(shallow);
     }
 
-    public int getClimbCount() {
-        return getTotal(climb);
+    public double getAverageDeep() {
+        return getAverage(deep);
     }
 
-    public int getMainAmpCount() {
-        return getTotal(mainAmp);
+    public double getAverageOffense() {
+        return getAverage(offense);
+    }
+
+    public double getAverageDefense() {
+        return getAverage(defense);
+    }
+
+    public double getMatchWeightedConsistency() {
+        return getAverage(matchConsistency);
+    }
+
+    public double getAverageAutoConsistency() {
+        return (getTotal(auto) / (getTotal(auto) + getTotal(missAuto)));
+    }
+
+    public double getAttemptWeightedConsistency() {
+        return (getTotal(coral) / (getTotal(coral) + getTotal(missTele)));
+    }
+
+    public double getMinAuto() {
+        return getMin(auto);
+    }
+
+    public double getMinAutoMiss() {
+        return getMin(missAuto);
+    }
+
+    public double getMinNet() {
+        return getMin(net);
+    }
+
+    public double getMinBarge() {
+        return getMin(barge);
+    }
+
+    public double getMinCoral() {
+        return getMin(coral);
+    }
+
+    public double getMinKnock() {
+        return getMin(knock);
+    }
+
+    public double getMinMissTele() {
+        return getMin(missTele);
+    }
+
+    public double getMinShallow() {
+        return getMin(shallow);
+    }
+
+    public double getMinDeep() {
+        return getMin(deep);
+    }
+
+    public double getMinOffense() {
+        return getMin(offense);
+    }
+
+    public double getMinDefense() {
+        return getMin(defense);
+    }
+
+    public double getMinMatchConsistency() {
+        return getMin(matchConsistency);
+    }
+
+    public double getMaxAuto() {
+        return getMax(auto);
+    }
+
+    public double getMaxAutoMiss() {
+        return getMax(missAuto);
+    }
+
+    public double getMaxNet() {
+        return getMax(net);
+    }
+
+    public double getMaxBarge() {
+        return getMax(barge);
+    }
+
+    public double getMaxCoral() {
+        return getMax(coral);
+    }
+
+    public double getMaxKnock() {
+        return getMax(knock);
+    }
+
+    public double getMaxMissTele() {
+        return getMax(missTele);
+    }
+
+    public double getMaxShallow() {
+        return getMax(shallow);
+    }
+
+    public double getMaxDeep() {
+        return getMax(deep);
+    }
+
+    public double getMaxOffense() {
+        return getMax(offense);
+    }
+
+    public double getMaxDefense() {
+        return getMax(defense);
+    }
+
+    public double getMaxMatchConsistency() {
+        return getMax(matchConsistency);
+    }
+
+    public ArrayList<Number> getAutoHistory() {
+        return new ArrayList<>(auto);
+    }
+
+    public ArrayList<Number> getAutoMissHistory() {
+        return new ArrayList<>(missAuto);
+    }
+
+    public ArrayList<Number> getNetHistory() {
+        return new ArrayList<>(net);
+    }
+
+    public ArrayList<Number> getBargeHistory() {
+        return new ArrayList<>(barge);
+    }
+
+    public ArrayList<Number> getCoralHistory() {
+        return new ArrayList<>(coral);
+    }
+
+    public ArrayList<Number> getKnockHistory() {
+        return new ArrayList<>(knock);
+    }
+
+    public ArrayList<Number> getMissTeleHistory() {
+        return new ArrayList<>(missTele);
+    }
+
+    public ArrayList<Number> getShallowHistory() {
+        return new ArrayList<>(shallow);
+    }
+
+    public ArrayList<Number> getDeepHistory() {
+        return new ArrayList<>(deep);
+    }
+
+    public ArrayList<Number> getOffenseHistory() {
+        return new ArrayList<>(offense);
+    }
+
+    public ArrayList<Number> getDefenseHistory() {
+        return new ArrayList<>(defense);
+    }
+
+    public ArrayList<Number> getMatchConsistencyHistory() {
+        return new ArrayList<>(matchConsistency);
     }
 
     public int getTotalMatches() {
         return auto.size();
     }
 
-    public double getMinSpeakerNotes() {
-        return (getOffenseCount() == 0) ? speakerDefault : getMin(speakerFiltered);
-    }
-
-    public double getMinTrapNotes() {
-        return (getTotalMatches() == 0) ? -1 : getMin(trap);
-    }
-
-    public double getMinAmpNotes() {
-        return (getMainAmpCount() == 0) ? ampDefault : getMin(ampFiltered);
-    }
-
-    public double getMinAutoNotes() {
-        return (getTotalMatches() == 0) ? -1 : getMin(auto);
-    }
-
-    public double getMinNotesPassed() {
-        return (getSupportCount() == 0) ? passDefault : getMin(passFiltered);
-    }
-
-    public double getMinClimb() {
-        return (getTotalMatches() == 0) ? -1 : getMin(climb);
-    }
-
-    public double getMaxSpeakerNotes() {
-        return (getOffenseCount() == 0) ? speakerDefault : getMax(speakerFiltered);
-    }
-
-    public double getMaxTrapNotes() {
-        return (getTotalMatches() == 0) ? -1 : getMax(trap);
-    }
-
-    public double getMaxAmpNotes() {
-        return (getMainAmpCount() == 0) ? ampDefault : getMax(ampFiltered);
-    }
-
-    public double getMaxAutoNotes() {
-        return (getTotalMatches() == 0) ? -1 : getMax(auto);
-    }
-
-    public double getMaxNotesPassed() {
-        return (getSupportCount() == 0) ? passDefault : getMax(passFiltered);
-    }
-
-    public double getMaxClimb() {
-        return (getTotalMatches() == 0) ? -1 : getMax(climb);
-    }
-
-    public double getCalculatedAverageSpeakerNotes() {
-        return (getOffenseCount() == 0) ? -1 : getAverage(speakerFiltered);
-    }
-
-    /**
-     * @return the average trap notes scored when the robot was playing offense or amp
-     */
-    public double getCalculatedAverageTrapNotes() {
-        return (getTotalMatches() == 0) ? -1 : getAverage(trap);
-    }
-
-    /**
-     * @return the average Amp notes scored when the robot was playing offense or amp
-     */
-    public double getCalculatedAverageAmpNotes() {
-        return (getMainAmpCount() == 0) ? -1 : getAverage(ampFiltered);
-    }
-
-    /**
-     * @return the average notes scored in Auto
-     */
-    public double getCalculatedAverageAutoNotes() {
-        return (getTotalMatches() == 0) ? -1 : getAverage(auto);
-    }
-
-    /**
-     * @return the average notes Passed when the robot was playing support
-     */
-    public double getCalculatedAverageNotesPassed() {
-        return (getSupportCount() == 0) ? -1 : getAverage(passFiltered);
-    }
-
-    /**
-     * @return the chance of the robot climbing 0-1
-     */
-    public double getCalculatedAverageClimb() {
-        return (getTotalMatches() == 0) ? -1 : getAverage(climb);
-    }
-
-    public ArrayList<Integer> getSpeakerHistory() {
-        return new ArrayList<>(speaker);
-    }
-
-    public ArrayList<Integer> getAmpHistory() {
-        return new ArrayList<>(amp);
-    }
-
-    public ArrayList<Integer> getAutoHistory() {
-        return new ArrayList<>(auto);
-    }
-
-    public ArrayList<Integer> getPassHistory() {
-        return new ArrayList<>(pass);
-    }
-
-    public ArrayList<Integer> getTrapHistory() {
-        return new ArrayList<>(trap);
-    }
-
-    public ArrayList<Integer> getClimbHistory() {
-        return new ArrayList<>(climb);
-    }
-
-    public ArrayList<Integer> getDefenseRoleHistory() {
-        return new ArrayList<>(defense);
-    }
-
-    public ArrayList<Integer> getSupportRoleHistory() {
-        return new ArrayList<>(support);
-    }
-
-    public ArrayList<Integer> getOffenseRoleHistory() {
-        return new ArrayList<>(offense);
-    }
-
-    public ArrayList<Integer> getMainAmpRoleHistory() {
-        return new ArrayList<>(mainAmp);
-    }
-
-    public ArrayList<Integer> getFilteredAmpHistory() {
-        return new ArrayList<>(ampFiltered);
-    }
-
-    public ArrayList<Integer> getFilteredSpeakerHistory() {
-        return new ArrayList<>(speakerFiltered);
-    }
-
-    public ArrayList<Integer> getFilteredPassHistory() {
-        return new ArrayList<>(passFiltered);
-    }
-
     public static String[] getDataNames() {
         return dataNames;
     }
 
-    public ArrayList<Integer>[] getDataHistory() {
+    public Number[] getDataAverage() {
+        return {
+            getAverageAuto();
+            getAverageAutoMiss(),
+            getAverageAutoMiss(),
+            
+        }
+    }
+
+    public ArrayList<Number>[] getDataHistory() {
         return (new ArrayList[]{
             getAutoHistory(), 
-            getTrapHistory(), 
-            getSpeakerHistory(), 
-            getAmpHistory(), 
-            getPassHistory(), 
-            getClimbHistory(), 
-            getDefenseRoleHistory(), 
-            getSupportRoleHistory(), 
-            getOffenseRoleHistory(), 
-            getMainAmpRoleHistory()
+            getAutoMissHistory(),
+            getNetHistory(), 
+            getBargeHistory(),
+            getKnockHistory(),
+            getCoralHistory(), 
+            getMissTeleHistory(), 
+            getShallowHistory(), 
+            getDeepHistory(), 
+            getOffenseHistory(),
+            getDefenseHistory(),
+            getMatchConsistencyHistory()
         });
     }
 
-    private double getAverage(ArrayList<Integer> list) {
-        double result = 0;
-        for (int i = 0; i < list.size(); i++) result += list.get(i);
-        return result / (double) list.size();
+    private double getAverage(ArrayList<Number> list) {
+        try {
+            double result = 0;
+            for (int i = 0; i < list.size(); i++) result += list.get(i).doubleValue();
+            return result / (double) list.size();
+        }
+        catch (Exception E) {
+            return -1;
+        }
     }
 
-    private int getTotal(ArrayList<Integer> list) {
-        int result = 0;
-        for (int i = 0; i < list.size(); i++) result += list.get(i);
-        return result;
+    private double getTotal(ArrayList<Number> list) {
+        try {
+            double result = 0;
+            for (int i = 0; i < list.size(); i++) result += list.get(i).doubleValue();
+            return result;
+        }
+        catch (Exception e) {
+            return -1;
+        }
     }
 
-    private int getMax(ArrayList<Integer> list) {
-        int max = Integer.MIN_VALUE;
-        for (int i = 0; i < list.size(); i++) max = max < list.get(i) ? list.get(i) : max;
-        return max;
+    private double getMax(ArrayList<Number> list) {
+        try {
+            double max = defaultValue;
+            for (int i = 0; i < list.size(); i++) max = max < list.get(i).doubleValue() ? list.get(i).doubleValue() : max;
+            return max;
+        }
+        catch (Exception e) {
+            return -1;
+        }
     }
 
-    private int getMin(ArrayList<Integer> list) {
-        int max = Integer.MAX_VALUE;
-        for (int i = 0; i < list.size(); i++) max = max > list.get(i) ? list.get(i) : max;
-        return max;
+    private double getMin(ArrayList<Number> list) {
+        try {
+            double min = defaultValue;
+            for (int i = 0; i < list.size(); i++) min = min > list.get(i).doubleValue() ? list.get(i).doubleValue() : min;
+            return min;
+        }
+        catch (Exception e) {
+            return -1;
+        }
     }
 }
