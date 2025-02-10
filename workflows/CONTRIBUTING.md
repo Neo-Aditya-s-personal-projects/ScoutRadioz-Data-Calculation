@@ -1,6 +1,6 @@
 # How to contribute
 
-This project is a small project for people to get customized data from csv files from scouting for frc teams. This project is open for others to help improve it by proposing features, finding bugs, or fixing  mistakes. I am really [thankful](https://github.com/nlohmann/json/blob/master/README.md#thanks) for this and try to keep track of all the helpers.
+This project is a small project for people to get customized data from csv files from scouting for frc teams. This project is open for others to help improve it by proposing features, finding bugs, or fixing  mistakes.
 
 To make it as easy as possible for you to contribute and for me to keep an overview, here are a few guidelines which should help us avoid all kinds of unnecessary work or disappointment. And of course, this document is subject to discussion, so please [create an issue](https://github.com/Neo-Aditya-s-personal-projects/ScoutRadioz-Data-Calculation/issues/new/choose) or a pull request if you find a way to improve it!
 
