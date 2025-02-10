@@ -17,6 +17,7 @@ public class ToggleScreenButtons {
     private final JButton manualDataButton = new JButton("Enter Data");
     private final JButton uploadDataButton = new JButton("Upload Data");
     private final JButton dataTableButton = new JButton("View Data");
+    private final JButton graphSelectorButton = new JButton("Generate Graphs");
     private JButton settingsButton = new JButton("Settings");
 
     public ToggleScreenButtons(JPanel panel, Screen currentScreen) {
@@ -44,7 +45,6 @@ public class ToggleScreenButtons {
         });
         panel.add(settingsButton);
 
-        uploadDataButton.setBounds(currentScreen.equals(Screen.DataTable) ? 560 : 860, currentScreen.equals(Screen.DataTable) ? 31 : 570, 300, 25);
         uploadDataButton.setBackground(Color.BLUE);
         uploadDataButton.setForeground(Color.RED);
         uploadDataButton.addActionListener(new ActionListener() {
@@ -54,7 +54,6 @@ public class ToggleScreenButtons {
             }
         });
 
-        manualDataButton.setBounds(860, currentScreen.equals(Screen.DataTable) ? 31 : 570, 300, 25);
         manualDataButton.setBackground(Color.RED);
         manualDataButton.setForeground(Color.BLUE);
         manualDataButton.addActionListener(new ActionListener() {
@@ -64,7 +63,6 @@ public class ToggleScreenButtons {
             }
         });
 
-        dataTableButton.setBounds(560, 570, 300, 25);
         dataTableButton.setBackground(Color.GREEN);
         dataTableButton.setForeground(Color.YELLOW);
             dataTableButton.addActionListener(new ActionListener() {
@@ -74,18 +72,47 @@ public class ToggleScreenButtons {
             }
         });
 
+        graphSelectorButton.setBackground(Color.CYAN);
+        graphSelectorButton.setForeground(Color.GRAY);
+        graphSelectorButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new GraphSelector();
+            }
+        });
+
         switch (currentScreen) {
             case AddDataManual -> {
+                uploadDataButton.setBounds(860, 570, 300, 25);
+                dataTableButton.setBounds(560, 570, 300, 25);
+
                 panel.add(uploadDataButton);
                 panel.add(dataTableButton);
             }
             case AddDataUpload -> {
+                manualDataButton.setBounds(860, 570, 300, 25);
+                dataTableButton.setBounds(560, 570, 300, 25);
+
                 panel.add(manualDataButton);
                 panel.add(dataTableButton);
             }
             case DataTable -> {
+                uploadDataButton.setBounds(410, 31, 300, 25);
+                manualDataButton.setBounds(710, 31, 300, 25);
+                graphSelectorButton.setBounds(1010, 31, 300, 25);
+
                 panel.add(uploadDataButton);
                 panel.add(manualDataButton);
+                panel.add(graphSelectorButton);
+            }
+            case GraphSelector -> {
+                uploadDataButton.setBounds(410, 1140, 300, 25);
+                manualDataButton.setBounds(710, 1140, 300, 25);
+                dataTableButton.setBounds(1010, 1140, 300, 25);
+
+                panel.add(uploadDataButton);
+                panel.add(manualDataButton);
+                panel.add(dataTableButton);
             }
         }
     }
