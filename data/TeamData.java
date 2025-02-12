@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import calcs.Team;
 
-import Constants.Constants;
+import constants.Constants;
 
 public class TeamData {
     static ArrayList<Team> teams = new ArrayList<>();

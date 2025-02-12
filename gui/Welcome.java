@@ -14,7 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-import Constants.Constants;
+import constants.Constants;
 
 public class Welcome implements ActionListener {
 

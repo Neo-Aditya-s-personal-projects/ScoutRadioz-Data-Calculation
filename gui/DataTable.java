@@ -19,7 +19,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import Constants.Constants;
+import constants.Constants;
 
 public class DataTable extends JFrame {
 
