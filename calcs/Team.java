@@ -1,8 +1,8 @@
 package calcs;
 import data.Request;
 import java.util.ArrayList;
-
 import constants.Constants;
+
 public class Team {
     private final int teamNumber;
     private final String teamName;
@@ -49,7 +49,9 @@ public class Team {
         "Climbed Deep", 
         "Main Offense",
         "Main Defense",
-        "Match Weighted Consistency"
+        "Match Weighted Consistency",
+        "Attempt Weighted Consistency",
+        "Auto Consistency"
     };
 
     public Team(int teamNumber, String teamName) {
@@ -339,13 +341,23 @@ public class Team {
         return dataNames;
     }
 
-    public Number[] getDataAverage() {
-        return {
+    public double[] getDataAverage() {
+        return (new double[]{
             getAverageAuto();
             getAverageAutoMiss(),
-            getAverageAutoMiss(),
-            
-        }
+            getAverageNet(),
+            getAverageBarge(),
+            getAverageKnock(),
+            getAverageCoral(),
+            getAverageMissTele(),
+            getAverageShallow(),
+            getAverageDeep(),
+            getAverageOffense(),
+            getAverageDefense(),
+            getMatchWeightedConsistency(),
+            getAttemptWeightedConsistency(),
+            getAverageAutoConsistency()
+        });
     }
 
     public ArrayList<Number>[] getDataHistory() {
