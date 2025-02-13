@@ -2,7 +2,6 @@ package data;
 
 import calcs.Team;
 import constants.Constants;
-
 import java.util.ArrayList;
 
 public class TeamData {

@@ -1,7 +1,7 @@
 package calcs;
+import constants.Constants;
 import data.Request;
 import java.util.ArrayList;
-import constants.Constants;
 
 public class Team {
     private final int teamNumber;

@@ -20,6 +20,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import constants.Constants;
+
 public class DataTable extends JFrame {
 
     private final JFrame frame = new JFrame();
