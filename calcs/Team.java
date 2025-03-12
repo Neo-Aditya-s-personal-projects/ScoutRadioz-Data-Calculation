@@ -1,4 +1,5 @@
 package calcs;
+
 import constants.Constants;
 import data.Request;
 import java.util.ArrayList;
@@ -38,6 +39,7 @@ public class Team {
     };
 
     private static final String[] dataNamesCalculated = {
+        "Team Number",
         "Auto Coral", 
         "Auto Miss",
         "Algae Scored in Net", 
@@ -51,7 +53,8 @@ public class Team {
         "Main Defense",
         "Match Weighted Consistency",
         "Attempt Weighted Consistency",
-        "Auto Consistency"
+        "Auto Consistency",
+        "Number of Matches"
     };
 
     public Team(int teamNumber, String teamName) {
@@ -337,13 +340,14 @@ public class Team {
         return auto.size();
     }
 
-    public static String[] getDataNames() {
-        return dataNames;
+    public static String[] getTableDataNames() {
+        return dataNamesCalculated;
     }
 
     public double[] getDataAverage() {
         return (new double[]{
-            getAverageAuto();
+            getTeamNumber(),
+            getAverageAuto(),
             getAverageAutoMiss(),
             getAverageNet(),
             getAverageBarge(),
@@ -356,8 +360,13 @@ public class Team {
             getAverageDefense(),
             getMatchWeightedConsistency(),
             getAttemptWeightedConsistency(),
-            getAverageAutoConsistency()
+            getAverageAutoConsistency(),
+            getTotalMatches()
         });
+    }
+
+    public static String[] getDataNames() {
+        return dataNames;
     }
 
     public ArrayList<Number>[] getDataHistory() {
