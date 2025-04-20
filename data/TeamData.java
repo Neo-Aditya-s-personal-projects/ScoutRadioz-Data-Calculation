@@ -2,6 +2,7 @@ package data;
 
 import calcs.Team;
 import constants.Constants;
+import gui.GUI;
 import java.util.ArrayList;
 
 public class TeamData {
@@ -15,30 +16,50 @@ public class TeamData {
         return false;
     }
 
-    public static void appendDataUpload(int teamNumber, String role, int autoCoral, int autoMissedCoral, int totalNet, int totalBarge, int totalKnocked, int teleCoral, int teleMissedCoral, String endState) {
+    public static void appendDataUpload(int teamNumber, double... data) {
         for (int i = 0; i < teams.size(); i++) {
             if (teams.get(i).getTeamNumber() == teamNumber) {
-                teams.get(i).appendData(role, autoCoral, autoMissedCoral, totalNet, totalBarge, totalKnocked, teleCoral, teleMissedCoral, endState);
+                try {
+                    teams.get(i).appendData(data);
+                }
+                catch (Exception e) {
+                    System.err.println("Your code sucks");
+                }
                 return;
             }
         }
         if (Constants.USE_TBA && Request.isValidNumber(teamNumber)) {
             teams.add(new Team(teamNumber));
-            teams.get(teams.size() - 1).appendData(role, autoCoral, autoMissedCoral, totalNet, totalBarge, totalKnocked, teleCoral, teleMissedCoral, endState);
+            try {
+                teams.get(teams.size() - 1).appendData(data);
+            }
+            catch (Exception e) {
+                System.err.println("Your code sucks");
+            }
         }
         else if (Constants.USE_TBA) {
             System.out.println("Invalid Team");
         }
         else {
             teams.add(new Team(teamNumber));
-            teams.get(teams.size() - 1).appendData(role, autoCoral, autoMissedCoral, totalNet, totalBarge, totalKnocked, teleCoral, teleMissedCoral, endState);
+            try {
+                teams.get(teams.size() - 1).appendData(data);
+            }
+            catch (Exception e) {
+                System.err.println("Your code sucks");
+            }
         }
     }
 
-    public static void appendData(int teamNumber, String role, int autoCoral, int autoMissedCoral, int totalNet, int totalBarge, int totalKnocked, int teleCoral, int teleMissedCoral, String endState) {
+    public static void appendData(int teamNumber, double... data) {
         for (int i = 0; i < teams.size(); i++) {
             if (teams.get(i).getTeamNumber() == teamNumber) {
-                teams.get(i).appendData(role, autoCoral, autoMissedCoral, totalNet, totalBarge, totalKnocked, teleCoral, teleMissedCoral, endState);
+                try {
+                    teams.get(i).appendData(data);
+                }
+                catch (Exception e) {
+                    System.err.println("Your code sucks");
+                }
                 return;
             }
         }

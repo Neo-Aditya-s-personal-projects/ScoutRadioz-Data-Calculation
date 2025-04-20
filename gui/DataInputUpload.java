@@ -16,6 +16,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import constants.Constants;
+
 public class DataInputUpload implements ActionListener {
 
     private JFrame frame = new JFrame();
@@ -66,62 +68,44 @@ public class DataInputUpload implements ActionListener {
     public void uploadData() {
         try {
             BufferedReader read = new BufferedReader(new FileReader(chooser.getSelectedFile()));
-            String dataLabels[] = read.readLine().split(",");
             int validity = -1;
             int teamNumber = -1;
-            int role = -1;
-            int speakerNotes = -1;
-            int ampNotes = -1;
-            int autoNotes = -1;
-            int notesPassed = -1;
-            int trapNotes = -1;
-            int climbed = -1;
+            int[] dataLocations = new int[Constants.DATA_LABELS.length];
+            for (int i = 0; i < dataLocations.length; i++) dataLocations[i] = -1;
+            String dataLabels[] = read.readLine().split(",");
 
             for (int i = 0; i < dataLabels.length; i++) {
-                if (dataLabels[i].equals("preMatchStart")) validity = i;
-                else if (dataLabels[i].equals("team_key")) teamNumber = i;
-                else if (dataLabels[i].equals("role")) role = i;
-                else if (dataLabels[i].equals("totalSpeakerNotes")) speakerNotes = i;
-                else if (dataLabels[i].equals("totalAmpNotes")) ampNotes = i;
-                else if (dataLabels[i].equals("totalAutoNotes")) autoNotes = i;
-                else if (dataLabels[i].equals("teleopPassedNotes")) notesPassed = i;
-                else if (dataLabels[i].equals("teleopTrap")) trapNotes = i;
-                else if (dataLabels[i].equals("endgameStage")) climbed = i;
+                for (int j = 0; j < dataLabels.length; j++) {
+                    if (dataLabels[i].equals(Constants.DATA_LABELS[j])) dataLocations[j] = i;
+                }
+                if (dataLabels[i].equals(Constants.DATA_VALIDITY[0])) validity = i;
+                if (dataLabels[i].equals("team_key")) teamNumber = i;
             }
 
-            if (validity == -1 || teamNumber == -1 || role == -1 || speakerNotes == -1 || ampNotes == -1 || autoNotes == -1 || notesPassed == -1 || trapNotes == -1 || climbed == -1) throw new Exception("Wrong File");
+            for (int location : dataLocations) if (location == -1) throw new Exception("Wrong File");
+            if (validity == -1) throw new Exception("Wrong File");
 
             while(true) {
                 String currentLine = read.readLine();
                 if (currentLine != null && !(currentLine.isEmpty())) {
                     String[] data = currentLine.split(",");
-                    if (!(data[validity].equals("Not There"))) {
-                        data[teamNumber] = data[teamNumber].replaceAll("frc", "").trim().replaceAll("\uFEFF", "");
-                        data[speakerNotes] = data[speakerNotes].replaceAll("\"", "").trim().replaceAll("\uFEFF", "");
-                        data[ampNotes] = data[ampNotes].replaceAll("\"", "").trim().replaceAll("\uFEFF", "");
-                        data[notesPassed] = data[notesPassed].replaceAll("\"", "").trim().replaceAll("\uFEFF", "");
-                        data[autoNotes] = data[autoNotes].replaceAll("\"", "").trim().replaceAll("\uFEFF", "");
-                        data[trapNotes] = data[trapNotes].replaceAll("\"", "").trim().replaceAll("\uFEFF", "");
-                        data[climbed] = data[climbed].replaceAll("\"", "").trim().replaceAll("\uFEFF", "");
-                        if(data[role].equals("Defense")) data[role] = "D";
-                        else if(
-                            (Integer.valueOf(data[ampNotes]) > (Integer.valueOf(data[speakerNotes]) - 2)) && 
-                            (Integer.valueOf(data[ampNotes]) > (Integer.valueOf(data[notesPassed]) - 2)) && 
-                            (Integer.valueOf(data[ampNotes]) > 0)
-                            ) data[role] = "A";
-                        else if(Integer.valueOf(data[notesPassed]) > (Integer.valueOf(data[speakerNotes]) + 2)) data[role] = "S";
-                        else data[role] = "O";
+                    double[] recordedData = new double[dataLocations.length];
+                    if (!(data[validity].equals(Constants.DATA_VALIDITY[1]))) {
+                        for (int i = 0; i < data.length; i++) 
+                            for (String filter : Constants.FILTER_VALUES) {
+                                data[i] = data[i].replaceAll(filter, "").trim();
+                                data[teamNumber] = data[teamNumber].replaceAll(filter, "").trim();
+                            }
+                        for (int i = 0; i < dataLocations.length; i++) {
+                            if(!(Constants.VALUE_NUMBER_MAP[i][0][0].equals("\uFEFF"))) {
+                                for (String[] valueKey : Constants.VALUE_NUMBER_MAP[i]) {
+                                    if (data[dataLocations[i]].equals(valueKey[0])) data[dataLocations[i]] = valueKey[1];
+                                }
+                            }
+                        }
+                        for (int i = 0; i < recordedData.length; i++) recordedData[i] = Integer.valueOf(data[dataLocations[i]]);
 
-                        TeamData.appendDataUpload(
-                            Integer.valueOf(data[teamNumber]), 
-                            data[role],
-                            Integer.valueOf(data[speakerNotes]),
-                            Integer.valueOf(data[ampNotes]),
-                            Integer.valueOf(data[autoNotes]),
-                            Integer.valueOf(data[notesPassed]),
-                            Integer.valueOf(data[trapNotes]),
-                            !(data[climbed].equals("Parked") || data[climbed].equals("Not Parked"))
-                            );
+                        TeamData.appendDataUpload(Integer.valueOf(data[teamNumber]), recordedData);
                     }
                 }
                 else throw new Exception("Uploaded Successful");

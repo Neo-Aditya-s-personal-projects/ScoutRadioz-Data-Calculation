@@ -47,6 +47,7 @@ public class DataInputManual implements ActionListener {
 
     private JButton submitButton = new JButton("Submit Data");
 
+    @Deprecated
     public DataInputManual() {
         new ToggleScreenButtons(panel, Screen.AddDataManual);
         panel.setBorder(BorderFactory.createMatteBorder(30, 30, 30, 30, Color.BLUE));
@@ -121,7 +122,7 @@ public class DataInputManual implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (checkDataValidity()) {
-            TeamData.appendData(Integer.valueOf(teamNumber.getText()), role.getText(), Integer.valueOf(speakerNotes.getText()), Integer.valueOf(ampNotes.getText()), Integer.valueOf(autoNotes.getText()), Integer.valueOf(notesPassed.getText()), Integer.valueOf(trapNotes.getText()), climbed.isSelected());
+            //TeamData.appendData(Integer.valueOf(teamNumber.getText()), role.getText(), Integer.valueOf(speakerNotes.getText()), Integer.valueOf(ampNotes.getText()), Integer.valueOf(autoNotes.getText()), Integer.valueOf(notesPassed.getText()), Integer.valueOf(trapNotes.getText()), climbed.isSelected());
             resetScreen();
         }
     }

@@ -18,16 +18,16 @@ public class Graph extends JPanel {
     private int sectionLineLengthOut = 12; //Outside graph box
     private final Random r = new Random();
     private final ArrayList<Integer> teams;
-    private final ArrayList<Integer>[] data;
+    private final ArrayList<Number>[] data;
     private final String xAxisLabel;
     private final String yAxisLabel;
     private final ArrayList<Color> lineColors = new ArrayList<>();
     private final int xSections;
     private final int ySections;
-    private int maxX = 0;
-    private int maxY = 0;
+    private double maxX = 0;
+    private double maxY = 0;
 
-    public Graph(String xAxisLabel, String yAxisLabel, ArrayList<Integer> teams, ArrayList<Integer>[] data, int xSections, int ySections) {
+    public Graph(String xAxisLabel, String yAxisLabel, ArrayList<Integer> teams, ArrayList<Number>[] data, int xSections, int ySections) {
         this.xAxisLabel = xAxisLabel;
         this.yAxisLabel = yAxisLabel;
         this.data = data;
@@ -35,14 +35,14 @@ public class Graph extends JPanel {
         this.ySections = ySections;
         this.xSections = xSections;
 
-        for (ArrayList<Integer> values : data) {
-            for (Integer datapoint : values) maxY = maxY < datapoint ? datapoint : maxY;
+        for (ArrayList<Number> values : data) {
+            for (Number datapoint : values) maxY = maxY < datapoint.doubleValue() ? datapoint.doubleValue() : maxY;
             maxX = values.size() > maxX ? values.size() : maxX;
             lineColors.add(new Color(r.nextInt(256), r.nextInt(256), r.nextInt(256), 180));
         }
     }
 
-    public Graph(String xAxisLabel, String yAxisLabel, int[] teams, ArrayList<Integer>[] data, int xSections, int ySections) {
+    public Graph(String xAxisLabel, String yAxisLabel, int[] teams, ArrayList<Number>[] data, int xSections, int ySections) {
         ArrayList<Integer> teamsList = new ArrayList<>();
         for (int team : teams) teamsList.add(team);
         
@@ -53,8 +53,8 @@ public class Graph extends JPanel {
         this.ySections = ySections;
         this.xSections = xSections;
 
-        for (ArrayList<Integer> values : data) {
-            for (Integer datapoint : values) maxY = maxY < datapoint ? datapoint : maxY;
+        for (ArrayList<Number> values : data) {
+            for (Number datapoint : values) maxY = maxY < datapoint.doubleValue() ? datapoint.doubleValue() : maxY;
             maxX = values.size() > maxX ? values.size() : maxX;
             lineColors.add(new Color(r.nextInt(256), r.nextInt(256), r.nextInt(256), 180));
         }
@@ -78,7 +78,7 @@ public class Graph extends JPanel {
             graphics.draw(rect);
             graphics.fill(rect);
             graphics.setColor(Color.BLACK);
-            graphics.drawString(Integer.toString(teams.get((int) i)), xRect + length * 2, (int) (padding + 3 * length * i + length));
+            graphics.drawString(Integer.toString(teams.get((int) i)), (int) (xRect + length * 2), (int) (padding + 3 * length * i + length));
         }
 
         graphics.translate(xOffset, yOffset);
@@ -106,12 +106,12 @@ public class Graph extends JPanel {
         for(int i = 0; i < data.length; i++) {
             graphics.setColor(lineColors.get(i));
             graphics.setStroke(new BasicStroke(2));
-            graphics.drawLine(padding, height - padding, (int) (padding + 1 * xScale), (int) (height - padding - data[i].get(0) * yScale));
+            graphics.drawLine(padding, height - padding, (int) (padding + 1 * xScale), (int) (height - padding - data[i].get(0).doubleValue() * yScale));
             for (int j = 0; j < data[i].size() - 1; j++) {
                 int x1 = (int) (padding + j * xScale);
-                int y1 = (int) (height - padding - data[i].get(j) * yScale);
+                int y1 = (int) (height - padding - data[i].get(j).doubleValue() * yScale);
                 int x2 = (int) (padding + (j + 1) * xScale);
-                int y2 = (int) (height - padding - data[i].get(j + 1) * yScale);
+                int y2 = (int) (height - padding - data[i].get(j + 1).doubleValue() * yScale);
                 graphics.drawLine(x1, y1, x2, y2);
             }
         }

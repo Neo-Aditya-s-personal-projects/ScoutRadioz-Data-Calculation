@@ -7,46 +7,13 @@ public class CalculateTable {
         for (int i = 0; i < teams.length; i++) {
             switch (setting) {
                 case  "Average" -> {
-                    double[] teamData = {
-                        teams[i].getTeamNumber(), 
-                        teams[i].getCalculatedAverageAutoNotes(), 
-                        teams[i].getCalculatedAverageAmpNotes(),
-                        teams[i].getCalculatedAverageSpeakerNotes(),
-                        teams[i].getCalculatedAverageClimb(),
-                        teams[i].getCalculatedAverageNotesPassed(),
-                        teams[i].getCalculatedAverageTrapNotes(),
-                        teams[i].getTotalMatches(),
-                        teams[i].getDefenseCount()
-                    };
-                    data[i] = teamData;
+                    data[i] = teams[i].getDataAverage();
                 }
                 case "Max" -> {
-                    double[] teamData = {
-                        teams[i].getTeamNumber(), 
-                        teams[i].getMaxAutoNotes(), 
-                        teams[i].getMaxAmpNotes(),
-                        teams[i].getMaxSpeakerNotes(),
-                        teams[i].getMaxClimb(),
-                        teams[i].getMaxNotesPassed(),
-                        teams[i].getMaxTrapNotes(),
-                        teams[i].getTotalMatches(),
-                        teams[i].getDefenseCount()
-                    };
-                    data[i] = teamData;
+                    data[i] = teams[i].getDataMax();
                 }
                 case "Min" -> {
-                    double[] teamData = {
-                        teams[i].getTeamNumber(), 
-                        teams[i].getMinAutoNotes(), 
-                        teams[i].getMinAmpNotes(),
-                        teams[i].getMinSpeakerNotes(),
-                        teams[i].getMinClimb(),
-                        teams[i].getMinNotesPassed(),
-                        teams[i].getMinTrapNotes(),
-                        teams[i].getTotalMatches(),
-                        teams[i].getDefenseCount()
-                    };
-                    data[i] = teamData;
+                    data[i] = teams[i].getDataMin();
                 }
             }
         }

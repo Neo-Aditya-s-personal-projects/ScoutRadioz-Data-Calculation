@@ -8,70 +8,22 @@ public class Team {
     private final int teamNumber;
     private final String teamName;
     
-    private final ArrayList<Number> auto;
-    private final ArrayList<Number> missAuto;
-    private final ArrayList<Number> net;
-    private final ArrayList<Number> barge;
-    private final ArrayList<Number> coral;
-    private final ArrayList<Number> knock;
-    private final ArrayList<Number> missTele;
-    private final ArrayList<Number> shallow;
-    private final ArrayList<Number> deep;
-    private final ArrayList<Number> offense;
-    private final ArrayList<Number> defense;
-    private final ArrayList<Number> matchConsistency;
+    private final ArrayList<ArrayList<Number>> data;
 
     private final int defaultValue = -1;
 
-    private static final String[] dataNames = {
-        "Auto Coral", 
-        "Auto Miss",
-        "Algae Scored in Net", 
-        "Algae Scored in Barge",
-        "Algae Kocked off Reef",
-        "Teleop Coral", 
-        "Teleop Coral Missed", 
-        "Climbed Shallow", 
-        "Climbed Deep", 
-        "Main Offense",
-        "Main Defense",
-        "Match Weighted Consistency"
+    private static String[] dataNames = {
+        "N / A"
     };
 
-    private static final String[] dataNamesCalculated = {
-        "Team Number",
-        "Auto Coral", 
-        "Auto Miss",
-        "Algae Scored in Net", 
-        "Algae Scored in Barge",
-        "Algae Kocked off Reef",
-        "Teleop Coral", 
-        "Teleop Coral Missed", 
-        "Climbed Shallow", 
-        "Climbed Deep", 
-        "Main Offense",
-        "Main Defense",
-        "Match Weighted Consistency",
-        "Attempt Weighted Consistency",
-        "Auto Consistency",
-        "Number of Matches"
+    private static String[] dataNamesCalculated = {
+        "N / A"
     };
 
     public Team(int teamNumber, String teamName) {
         this.teamNumber = teamNumber;
         this.teamName = teamName;
-        auto = new ArrayList<>();
-        missAuto = new ArrayList<>();
-        net = new ArrayList<>();
-        barge = new ArrayList<>();
-        knock = new ArrayList<>();
-        coral = new ArrayList<>();
-        missTele = new ArrayList<>();
-        shallow = new ArrayList<>();
-        deep = new ArrayList<>();
-        offense = new ArrayList<>();
-        defense = new ArrayList<>();
-        matchConsistency = new ArrayList<>();
+        data = new ArrayList<>();
     }
 
     public Team(int teamNumber) {
@@ -81,52 +33,21 @@ public class Team {
     public Team(Team team) {
         teamNumber = team.getTeamNumber();
         teamName = team.getTeamName();
-        
-        auto = team.getAutoHistory();
-        missAuto = team.getAutoMissHistory();
-        net = team.getNetHistory();
-        barge = team.getBargeHistory();
-        knock = team.getKnockHistory();
-        coral = new ArrayList<>();
-        missTele = new ArrayList<>();
-        shallow = new ArrayList<>();
-        deep = new ArrayList<>();
-        offense = new ArrayList<>();
-        defense = new ArrayList<>();
-        matchConsistency = new ArrayList<>();
+        data = new ArrayList<>(team.data);
     }
 
     /**
-     * @param role The robot's role "D" for Defense & "O" for Offense
-     * @param autoCoral The Amount of Coral the Robot scored in Auto
-     * @param autoMissedCoral The Amount of Coral the Robot missed in Auto
-     * @param totalNet The Amount of Algae that the Robot scored in the Net
-     * @param totalBarge The Amount of Algae that the Robot scored in the Barge
-     * @param totalKnocked The Amount of Algae that the Robot removed from the reef
-     * @param teleCoral The Amount of Coral the Robot scored in Auto
-     * @param teleMissedCoral The Amount of Coral the Robot missed in Auto
-     * @param endState The robot's end position when the match ends "D" for Deep "S" for Shallow, & "O" for Other
+     * @param data The data that was noted down, use regular binary for booleans
      */
-    public void appendData(String role, int autoCoral, int autoMissedCoral, int totalNet, int totalBarge, int totalKnocked, int teleCoral, int teleMissedCoral, String endState) {
-        auto.add(autoCoral);
-        missAuto.add(autoMissedCoral);
-        shallow.add(endState.equals("S") ? 1 : 0);
-        deep.add(endState.equals("D") ? 1 : 0);
-        if (role.equalsIgnoreCase("O")) {
-            net.add(totalNet);
-            barge.add(totalBarge);
-            knock.add(totalKnocked);
-            coral.add(teleCoral);
-            missTele.add(teleMissedCoral);
-            matchConsistency.add((double) teleMissedCoral / teleCoral);
-            offense.add(1);
-            defense.add(0);
-        }
+    public void appendData(double... data) throws Exception {
+        if (data.length < this.data.size()) throw new Exception("Too few data types.");
         else {
-            offense.add(0);
-            defense.add(1);
+            if (data.length > this.data.size()) for (int i = this.data.size(); i < data.length; i++) this.data.add(new ArrayList<>());
+            for (int i = 0; i < data.length; i++) this.data.get(i).add(data[i]);
         }
     }
+
+    
 
     public int getTeamNumber() {
         return teamNumber;
@@ -136,254 +57,57 @@ public class Team {
         return teamName;
     }
 
-    public double getAverageAuto() {
-        return getAverage(auto);
-    }
-
-    public double getAverageAutoMiss() {
-        return getAverage(missAuto);
-    }
-
-    public double getAverageNet() {
-        return getAverage(net);
-    }
-
-    public double getAverageBarge() {
-        return getAverage(barge);
-    }
-
-    public double getAverageCoral() {
-        return getAverage(coral);
-    }
-
-    public double getAverageKnock() {
-        return getAverage(knock);
-    }
-
-    public double getAverageMissTele() {
-        return getAverage(missTele);
-    }
-
-    public double getAverageShallow() {
-        return getAverage(shallow);
-    }
-
-    public double getAverageDeep() {
-        return getAverage(deep);
-    }
-
-    public double getAverageOffense() {
-        return getAverage(offense);
-    }
-
-    public double getAverageDefense() {
-        return getAverage(defense);
-    }
-
-    public double getMatchWeightedConsistency() {
-        return getAverage(matchConsistency);
-    }
-
-    public double getAverageAutoConsistency() {
-        return (getTotal(auto) / (getTotal(auto) + getTotal(missAuto)));
-    }
-
-    public double getAttemptWeightedConsistency() {
-        return (getTotal(coral) / (getTotal(coral) + getTotal(missTele)));
-    }
-
-    public double getMinAuto() {
-        return getMin(auto);
-    }
-
-    public double getMinAutoMiss() {
-        return getMin(missAuto);
-    }
-
-    public double getMinNet() {
-        return getMin(net);
-    }
-
-    public double getMinBarge() {
-        return getMin(barge);
-    }
-
-    public double getMinCoral() {
-        return getMin(coral);
-    }
-
-    public double getMinKnock() {
-        return getMin(knock);
-    }
-
-    public double getMinMissTele() {
-        return getMin(missTele);
-    }
-
-    public double getMinShallow() {
-        return getMin(shallow);
-    }
-
-    public double getMinDeep() {
-        return getMin(deep);
-    }
-
-    public double getMinOffense() {
-        return getMin(offense);
-    }
-
-    public double getMinDefense() {
-        return getMin(defense);
-    }
-
-    public double getMinMatchConsistency() {
-        return getMin(matchConsistency);
-    }
-
-    public double getMaxAuto() {
-        return getMax(auto);
-    }
-
-    public double getMaxAutoMiss() {
-        return getMax(missAuto);
-    }
-
-    public double getMaxNet() {
-        return getMax(net);
-    }
-
-    public double getMaxBarge() {
-        return getMax(barge);
-    }
-
-    public double getMaxCoral() {
-        return getMax(coral);
-    }
-
-    public double getMaxKnock() {
-        return getMax(knock);
-    }
-
-    public double getMaxMissTele() {
-        return getMax(missTele);
-    }
-
-    public double getMaxShallow() {
-        return getMax(shallow);
-    }
-
-    public double getMaxDeep() {
-        return getMax(deep);
-    }
-
-    public double getMaxOffense() {
-        return getMax(offense);
-    }
-
-    public double getMaxDefense() {
-        return getMax(defense);
-    }
-
-    public double getMaxMatchConsistency() {
-        return getMax(matchConsistency);
-    }
-
-    public ArrayList<Number> getAutoHistory() {
-        return new ArrayList<>(auto);
-    }
-
-    public ArrayList<Number> getAutoMissHistory() {
-        return new ArrayList<>(missAuto);
-    }
-
-    public ArrayList<Number> getNetHistory() {
-        return new ArrayList<>(net);
-    }
-
-    public ArrayList<Number> getBargeHistory() {
-        return new ArrayList<>(barge);
-    }
-
-    public ArrayList<Number> getCoralHistory() {
-        return new ArrayList<>(coral);
-    }
-
-    public ArrayList<Number> getKnockHistory() {
-        return new ArrayList<>(knock);
-    }
-
-    public ArrayList<Number> getMissTeleHistory() {
-        return new ArrayList<>(missTele);
-    }
-
-    public ArrayList<Number> getShallowHistory() {
-        return new ArrayList<>(shallow);
-    }
-
-    public ArrayList<Number> getDeepHistory() {
-        return new ArrayList<>(deep);
-    }
-
-    public ArrayList<Number> getOffenseHistory() {
-        return new ArrayList<>(offense);
-    }
-
-    public ArrayList<Number> getDefenseHistory() {
-        return new ArrayList<>(defense);
-    }
-
-    public ArrayList<Number> getMatchConsistencyHistory() {
-        return new ArrayList<>(matchConsistency);
-    }
-
     public int getTotalMatches() {
-        return auto.size();
+        return data.get(0).size();
     }
 
     public static String[] getTableDataNames() {
         return dataNamesCalculated;
     }
 
+    public static void setTableDataNames(String[] dataNamesCalculated) {
+        Team.dataNamesCalculated = dataNamesCalculated;
+    }
+
     public double[] getDataAverage() {
-        return (new double[]{
-            getTeamNumber(),
-            getAverageAuto(),
-            getAverageAutoMiss(),
-            getAverageNet(),
-            getAverageBarge(),
-            getAverageKnock(),
-            getAverageCoral(),
-            getAverageMissTele(),
-            getAverageShallow(),
-            getAverageDeep(),
-            getAverageOffense(),
-            getAverageDefense(),
-            getMatchWeightedConsistency(),
-            getAttemptWeightedConsistency(),
-            getAverageAutoConsistency(),
-            getTotalMatches()
-        });
+        double[] result = new double[data.size() + 1];
+        for (int i = 0; i < data.size(); i++) {
+            result[i] = getAverage(data.get(i));
+        }
+        result[data.size()] = data.get(0).size();
+        return result;
+    }
+
+    public double[] getDataMax() {
+        double[] result = new double[data.size() + 1];
+        for (int i = 0; i < data.size(); i++) {
+            result[i] = getMax(data.get(i));
+        }
+        result[data.size()] = data.get(0).size();
+        return result;
+    }
+
+    public double[] getDataMin() {
+        double[] result = new double[data.size() + 1];
+        for (int i = 0; i < data.size(); i++) {
+            result[i] = getMin(data.get(i));
+        }
+        result[data.size()] = data.get(0).size();
+        return result;
     }
 
     public static String[] getDataNames() {
         return dataNames;
     }
 
+    public static void setDataNames(String[] dataNames) {
+        Team.dataNames = dataNames;
+    }
+
     public ArrayList<Number>[] getDataHistory() {
-        return (new ArrayList[]{
-            getAutoHistory(), 
-            getAutoMissHistory(),
-            getNetHistory(), 
-            getBargeHistory(),
-            getKnockHistory(),
-            getCoralHistory(), 
-            getMissTeleHistory(), 
-            getShallowHistory(), 
-            getDeepHistory(), 
-            getOffenseHistory(),
-            getDefenseHistory(),
-            getMatchConsistencyHistory()
-        });
+        ArrayList<Number>[] result = new ArrayList[data.size()];
+        for (int i = 0; i < data.size(); i++) result[i] = data.get(i);
+        return result;
     }
 
     private double getAverage(ArrayList<Number> list) {
@@ -393,17 +117,6 @@ public class Team {
             return result / (double) list.size();
         }
         catch (Exception E) {
-            return -1;
-        }
-    }
-
-    private double getTotal(ArrayList<Number> list) {
-        try {
-            double result = 0;
-            for (int i = 0; i < list.size(); i++) result += list.get(i).doubleValue();
-            return result;
-        }
-        catch (Exception e) {
             return -1;
         }
     }

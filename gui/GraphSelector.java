@@ -145,7 +145,7 @@ public class GraphSelector extends JPanel {
                 if (graphTypeToggle.getText().equals("Select Graph")) System.out.println("Error: Graph Type Not Selected");
                 else if (dataAnalyzedToggle.getText().equals("Select Data Type")) System.out.println("Error: Data Type Not Selected");
                 else if (graphTypeToggle.getText().equals("All Teams")) {
-                    ArrayList<Integer>[] data = new ArrayList[CalculateGraph.getTeamNumbers(TeamData.getTeams()).length];
+                    ArrayList<Number>[] data = new ArrayList[CalculateGraph.getTeamNumbers(TeamData.getTeams()).length];
                     int indexOfTarget = 0;
                     while (!(Team.getDataNames()[indexOfTarget].equals(dataAnalyzedToggle.getText()))) indexOfTarget++;
                     for (int i = 0; i < data.length; i++) data[i] = TeamData.getTeams()[i].getDataHistory()[indexOfTarget];
@@ -161,7 +161,7 @@ public class GraphSelector extends JPanel {
                     frameTemp.setVisible(true);
                 }
                 else {
-                    ArrayList<Integer>[] data = new ArrayList[selectedTeamNumbers.size()];
+                    ArrayList<Number>[] data = new ArrayList[selectedTeamNumbers.size()];
                     int indexOfTarget = 0;
                     while (!(Team.getDataNames()[indexOfTarget].equals(dataAnalyzedToggle.getText()))) indexOfTarget++;
                     for (Team team : TeamData.getTeams()) {
